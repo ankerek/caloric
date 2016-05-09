@@ -22,7 +22,7 @@ export function objectIdFromTimestamp(timestamp) {
 export function timestampFromObjectId(objectId) {
 	let date = new Date(parseInt(String(objectId).substring(0, 8), 16) * 1000);
 	
-	return date.setHours(0,0,0,0);
+	return date.setUTCHours(0,0,0,0);
 }
 
 export function countNutrient(value, totalWeight) {
@@ -43,9 +43,9 @@ export function isDateStringValid(dateString) {
 export function getTimestampFromParams(params) {
   const dateString = params && params.date ? params.date : null;
 
-  const date = isDateStringValid(dateString) ? moment(dateString).toDate() : new Date();
+  const date = isDateStringValid(dateString) ? moment.utc(dateString).toDate() : new Date();
 
-  return date.setHours(0,0,0,0);
+  return date.setUTCHours(0,0,0,0);
 }
 
 export function debounce(func, wait, immediate) {

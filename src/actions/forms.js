@@ -42,7 +42,7 @@ export const UPDATE_PREFERENCES_FAILURE = 'UPDATE_PREFERENCES_FAILURE'
 export const updatePreferences = (data) => {
 
   let today = new Date();
-  today.setHours(0,0,0,0);
+  today.setUTCHours(0,0,0,0);
 
   if(!data._id || today.getTime() !== timestampFromObjectId(data._id)) delete data._id; //jestlize to neni dnesni datum predvoleb (starsi), tak se smaze attribut _id a vytvori se novy dokument
 

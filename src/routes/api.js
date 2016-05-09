@@ -276,7 +276,7 @@ router.get('/preferences/:to', expressJwt({secret: 'tajnyKlic'}), function(req, 
 
 router.post('/preferences', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
 
-  const timestamp = new Date().setHours(0,0,0,0);
+  const timestamp = new Date().setUTCHours(0,0,0,0);
   const _id = mongoose.Types.ObjectId(hexSeconds(timestamp) + mongoose.Types.ObjectId().toString().substring(8));
 
   const preferences = new Preferences({...req.body.data, _id, user_id: req.user._id});

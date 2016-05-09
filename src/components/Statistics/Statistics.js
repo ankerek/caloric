@@ -35,7 +35,7 @@ export default class Statistics extends React.Component {
 
   static fetchData({ store, baseUrl, range }) {
     if(!range) {
-      const last = moment().add(1, 'days').startOf('day').unix() * 1000;
+      const last = moment().utc().add(1, 'days').startOf('day').unix() * 1000;
       const first = moment(last).subtract(30, 'days').unix() * 1000;
       var range = {
         first,
@@ -55,7 +55,7 @@ export default class Statistics extends React.Component {
 
     const today = new Date();
 
-    const last = moment().add(1, 'days').startOf('day').unix() * 1000;
+    const last = moment().utc().add(1, 'days').startOf('day').unix() * 1000;
     const first = moment(last).subtract(30, 'days').unix() * 1000;
 
     this.state = {

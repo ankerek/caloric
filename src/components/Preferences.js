@@ -28,7 +28,7 @@ export default class Preferences extends React.Component {
 
   static fetchData({ store, baseUrl }) {
     const date = new Date();
-    date.setHours(0,0,0,0);
+    date.setUTCHours(0,0,0,0);
 
     return store.dispatch(fetchPreferences({baseUrl, timestamp: date.getTime()}))
   }

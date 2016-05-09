@@ -41,7 +41,7 @@ export default class DayNavigation extends React.Component {
   getPrevNextDay = (type) => {
     const {timestamp} = this.props;
     const next = new Date(timestamp);
-    next.setHours(0,0,0,0);
+    next.setUTCHours(0,0,0,0);
     next.setDate(next.getDate() + (type === 'next' ? 1 : -1));
     return '/jidelnicek/' + moment(next).format('YYYY-MM-DD');
   };
