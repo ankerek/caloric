@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom/server';
 import Helmet from 'react-helmet';
 
+let script;
+if(process.env.NODE_ENV === 'development') {
+  const config = require('../webpack/dev.config');
+  script = `${config.output.publicPath}${config.output.filename}`;
+}
+else script = '/dist/bundle.js';
 
-
-const config = process.env.NODE_ENV === 'production' ? require('../webpack/prod.config') : require('../webpack/dev.config');
-const script = `${config.output.publicPath}${config.output.filename}`;
+// const config = process.env.NODE_ENV === 'production' ? require('../webpack/prod.config') : require('../webpack/dev.config');
+// const script = `${config.output.publicPath}${config.output.filename}`;
 
 export default class Html extends Component {
 
