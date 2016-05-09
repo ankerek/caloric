@@ -11,7 +11,7 @@
     "dev-windows": "SET NODE_ENV=development&&node index",
     "start": "npm run prod",
     "prod": "NODE_ENV=production node index",
-    "prod-windows": "SET NODE_ENV=production&&SET PORT=8080&&node index",
+    "prod-windows": "SET NODE_ENV=production&&node index",
     "lint": "eslint src"
   },
   "devDependencies": {
