@@ -9,7 +9,8 @@
     "clean": "rimraf dist",
     "build-windows": "npm run clean&&SET NODE_ENV=production&&webpack --progress --stats --config ./webpack/prod.config.js",
     "dev-windows": "SET NODE_ENV=development&&node index",
-    "start": "npm run dev",
+    "start": "npm run prod",
+    "prod": "NODE_ENV=production&&PORT=8080&&node index",
     "prod-windows": "SET NODE_ENV=production&&SET PORT=8080&&node index",
     "lint": "eslint src"
   },
