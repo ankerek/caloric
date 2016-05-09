@@ -2,7 +2,6 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var strip = require("strip-loader");
-var StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
 
 const host = process.env.HOST || 'localhost';
 const port = (process.env.PORT) || 8080;
