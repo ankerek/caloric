@@ -1,0 +1,57 @@
+@import 'compass';
+//@import "./node_modules/bootstrap/dist/css/bootstrap";
+@import "./node_modules/react-date-picker/index";
+@import "./node_modules/humane-js/themes/libnotify";
+@import "./node_modules/react-vis/main";
+@import "./node_modules/react-select/dist/react-select";
+
+.container {
+	width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1170px;
+  }
+}
+
+body {
+}
+
+
+
+.progress-bar {
+	max-width: 100%;
+}
+
+
+.react-autosuggest__container {
+	position: relative;
+
+	&.react-autosuggest__container--open input {
+	  @include border-bottom-radius(0px);
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		list-style: none;
+		z-index: 9;
+		top: 35px;
+		position: absolute;
+		background-color: white;
+		border: 1px solid #ccc;
+		border-top: none;
+		@include border-bottom-radius(5px);
+
+		li {
+			padding: 3px 5px;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #eee;
+			}
+		}
+	}
+}
