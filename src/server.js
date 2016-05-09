@@ -115,10 +115,6 @@ import Html from './Html'
     return res.status(err.status || 500).json('Něco se pokazilo');
   });
 
-  console.log(app.get('env'));
-  console.log(app.get('port'));
-
-
   app.listen(app.get('port'), function() {
     console.log(`Server started: http://${app.get('host')}:${app.get('port')}/`);
   });
