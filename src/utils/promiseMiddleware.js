@@ -21,13 +21,6 @@ export default function promiseMiddleware({dispatch, getState}) {
         else return json.then(Promise.reject.bind(Promise));
       }).then(
         (result) => {
-          // if(result.status !== 'success') {
-          //   if(result.message) {
-          //     if ( process.env.BROWSER ) humane.error(result.message);
-          //   }
-          //   next({ ...rest, result, message: result.message || 'Něco se pokazilo', type: FAILURE });
-          //   return Promise.reject(result.message);
-          // }
           return next({ ...rest, result, type: SUCCESS });
         },
         (error) => {

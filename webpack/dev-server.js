@@ -1,13 +1,13 @@
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import config from './dev.config'
+import webpackConfig from './dev.config'
+import config from '../src/config'
 
-const host = process.env.HOST || 'localhost';
-const port = (process.env.PORT + 1) || 3001;
+const port = config.port + 1;
 
 
 const options = {
-  publicPath: config.output.publicPath,
+  publicPath: webpackConfig.output.publicPath,
   hot: true,
   historyApiFallback: true,
   stats: { 
@@ -19,10 +19,10 @@ const options = {
   // }
 };
 
-const compiler = webpack(config);
+const compiler = webpack(webpackConfig);
 const webpackDevServer = new WebpackDevServer(compiler, options);
     
-webpackDevServer.listen(port, host, () => {
-  console.log(`Webpack dev server started: http://${host}:${port}/`);
+webpackDevServer.listen(port, config.host, () => {
+  console.log(`Webpack dev server started: http://${config.host}:${port}/`);
 });
 

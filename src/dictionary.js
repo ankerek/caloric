@@ -43,7 +43,11 @@ export const D_NUTRITION_VALUES = {
 	},
 	fiber: {
 		label: 'Vláknina',
-		unit: 'g'
+		unit: 'g',
+		recommendations: {
+			male: {	1: 19, 4: 25, 9: 31, 14: 38, 51: 30 },
+			female: { 1: 19, 4: 25, 9: 26, 19: 25, 51: 21 }
+		}
 	},
 	//vitamins
 	vitamina: {

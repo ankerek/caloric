@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import expressJwt from 'express-jwt'
-
+import config from '../config'
 import Food from '../models/food'
 import Meal from '../models/meal'
 import Preferences from '../models/preferences'
@@ -14,6 +14,12 @@ import { countNutrient, hexSeconds, timestampFromObjectId } from '../utils/utils
 import { generateToken, extractToken, getCleanUser } from '../utils/auth'
 
 const router = express.Router();
+
+
+function randomNValue(min,max) {
+  const value = Math.floor(Math.random()*(max-min+1)+min);
+  return value > 0 ? value : 0;
+}
 
 router.get('/food', function(req, res) {
   Food.find(function(err, food) {
@@ -36,8 +42,32 @@ router.get('/food/:name', function(req, res, next) {
 
 });
 
+router.get('/set-food', function(req, res) {
+  Food.find(function(err, food) {
+    if (err) res.send(err);
 
-router.get('/meals/', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
+    food.forEach((item) => {
+      // item.fiber = randomNValue(-4,5) * 10000;// -4 - 5 / 100g
+      // item.kcal = item.kcal / 1000;
+      // item.proteins = item.proteins / 1000;
+      // item.carbs = item.carbs / 1000;
+      // item.fats = item.fats / 1000;
+      item.vitaminc = randomNValue(-10,50) * 1000;
+      item.vitamind = randomNValue(-30,800) * 10;
+      item.save();
+    });
+
+    res.json(food.length + 'edited');
+  });
+});
+
+
+//auth routes
+//
+router.use(expressJwt({ secret: config.secret}));
+
+
+router.get('/meals/', function(req, res, next) {
   Meal.find({_id: {$gt: req.query.from, $lt: req.query.to}, user_id: req.user._id }, (err, food) => {
     if (err) return next(err);
 
@@ -45,7 +75,7 @@ router.get('/meals/', expressJwt({secret: 'tajnyKlic'}), function(req, res, next
   });
 });
 
-router.post('/meals', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
+router.post('/meals', function(req, res, next) {
   const data = req.body;
 
   if(!data.hexSeconds || !data.meal) return next();
@@ -126,7 +156,7 @@ function mealFindByIdAndUpdate(data, req, res, next) {
 }
 
 
-router.put('/meals/:id', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
+router.put('/meals/:id', function(req, res, next) {
 
   const data = req.body;
   const meal_id = req.params.id;
@@ -242,7 +272,7 @@ router.put('/meals/:id', expressJwt({secret: 'tajnyKlic'}), function(req, res, n
 
 });
 
-router.get('/preferences/', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
+router.get('/preferences/', function(req, res, next) {
   if(!req.query.from || !req.query.to) return next();
 
   Preferences.find({_id: {$gt: req.query.from, $lt: req.query.to}, user_id: req.user._id }).sort({_id: 1}).exec((err, preferences) => {
@@ -263,7 +293,7 @@ router.get('/preferences/', expressJwt({secret: 'tajnyKlic'}), function(req, res
   });
 });
 
-router.get('/preferences/:to', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
+router.get('/preferences/:to', function(req, res, next) {
 
   //var query = Preferences.find({_id: {$lte: req.params.to} }).sort({_id:-1}).limit(1);
 
@@ -274,7 +304,7 @@ router.get('/preferences/:to', expressJwt({secret: 'tajnyKlic'}), function(req, 
   });
 });
 
-router.post('/preferences', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
+router.post('/preferences', function(req, res, next) {
 
   const timestamp = new Date().setUTCHours(0,0,0,0);
   const _id = mongoose.Types.ObjectId(hexSeconds(timestamp) + mongoose.Types.ObjectId().toString().substring(8));
@@ -289,7 +319,7 @@ router.post('/preferences', expressJwt({secret: 'tajnyKlic'}), function(req, res
   
 });
 
-router.put('/preferences/:id', expressJwt({secret: 'tajnyKlic'}), function(req, res, next) {
+router.put('/preferences/:id', function(req, res, next) {
   const _id = req.params.id;
 
   Preferences.findOneAndUpdate({_id, user_id: req.user._id }, req.body.data, {/*upsert: true, */new: true, runValidators: true}, function(err, preferences) {

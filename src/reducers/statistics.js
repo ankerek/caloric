@@ -1,38 +1,34 @@
 import Immutable from 'immutable'
-import * as ActionTypes from '../actions/statistics'
+import * as ActionTypes from '../actions'
 import { D_NUTRITION_VALUES } from '../dictionary'
 import { timestampFromObjectId } from '../utils/utils'
 
 const InitialState = Immutable.Record({
-  map: Immutable.Map()
+  map: Immutable.Map(),
+  loading: false
 });
 const initialState = new InitialState;
 
-const revive = ({ map }) => initialState.merge({
+const revive = ({ map, loading }) => initialState.merge({
   map: Immutable.fromJS(map),
+  loading
 });
-
-/*
-nutritionValues: {
-  kcal: {
-    values: {
-      id1: 5,
-      id2: 10
-    },
-    goals: {
-      'id1': 10,
-      'id2': 20
-    }
-  }
-}
- */
 
 
 const statistics = (state = initialState, action) => {
   if (!(state instanceof InitialState)) return revive(state);
   
   switch (action.type) {
+
+    case ActionTypes.FETCH_MEALS_FOR_STATS_REQUEST:
+    case ActionTypes.FETCH_PREFERENCES_FOR_STATS_REQUEST:
+      return state.set('loading', true);
+    case ActionTypes.FETCH_MEALS_FOR_STATS_FAILURE:
+    case ActionTypes.FETCH_PREFERENCES_FOR_STATS_FAILURE:
+      return state.set('loading', false);
+
     case ActionTypes.FETCH_PREFERENCES_FOR_STATS_SUCCESS:
+      console.log('fds')
 
       let nutritionValues = Immutable.Map();
 
@@ -54,7 +50,10 @@ const statistics = (state = initialState, action) => {
         }));
       }
 
-      return state.set('map', nutritionValues); 
+      return state.merge({
+        'map': nutritionValues,
+        'loading': false
+      }); 
     default:
       return state
   }

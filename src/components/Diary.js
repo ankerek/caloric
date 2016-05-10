@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 
 import { connect } from 'react-redux'
 import { fetchMeals } from '../actions/meals'
-import { fetchPreferences } from '../actions/forms'
+import { fetchPreferences } from '../actions/preferences'
 import DayNavigation from './DayNavigation'
 import Meals from './Meals'
 import Information from './Information'
@@ -58,8 +58,9 @@ export default class Diary extends React.Component {
   	
     return (
       <div className="main">
-        <h1>Úvodní stránka</h1>
-        <Helmet title="Úvodní stránka"/>
+        <h1>Jídelníček {loadingMeals && <i className="fa fa-refresh fa-spin fa-fw margin-bottom" aria-hidden="true"></i>}
+          <span className="sr-only">Načítám...</span></h1>
+        <Helmet title="Jídelníček"/>
         <DayNavigation timestamp={timestamp} />
 
         <AddFood timestamp={timestamp} meals={meals} loading={loadingMeals} />

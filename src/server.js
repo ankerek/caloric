@@ -9,7 +9,7 @@ import mongoose from 'mongoose'
 
 import indexRoutes from './routes/index'
 import apiRoutes from './routes/api'
-
+import config from './config'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
@@ -19,22 +19,15 @@ import configureStore from './utils/configureStore'
 import { isDateStringValid } from './utils/utils'
 import Html from './Html'
 
-//export default function(callback) {
-//
-//
+
   const app = express();
-  app.set('env', process.env.NODE_ENV || 'development');
-  app.set('host', process.env.HOST || 'localhost');
-  app.set('port', process.env.PORT || 3000);
-  app.set('mongodb', process.env.MONGOLAB_URI || 'mongodb://caloric:c4l0r1c@ds011382.mlab.com:11382/caloric');//'mongodb://localhost:27017/caloric'; 
-  console.log(app.get('mongodb'));
-  mongoose.connect(app.get('mongodb'));
+
+  console.log(config.mongodb);
+
+  mongoose.connect(config.mongodb);
   mongoose.connection.on('error', function() {
     console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
   });
-
-  
-  //var compiler = webpack(config);
 
 
 
@@ -115,8 +108,8 @@ import Html from './Html'
     return res.status(err.status || 500).json('Něco se pokazilo');
   });
 
-  app.listen(app.get('port'), function() {
-    console.log(`Server started: http://${app.get('host')}:${app.get('port')}/`);
+  app.listen(config.port, function() {
+    console.log(`Server started: http://${config.host}:${config.port}/`);
   });
 
   if(app.get('env') === 'development') {

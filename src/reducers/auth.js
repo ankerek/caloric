@@ -1,6 +1,5 @@
 import Immutable from 'immutable'
-
-import { FETCH_USER_SUCCESS, SIGNIN_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth'
+import * as ActionTypes from '../actions'
 
 const InitialState = Immutable.Record({
   user: Immutable.Map(),
@@ -13,12 +12,12 @@ const auth = (state = initialState, action) => {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state);
   
   switch (action.type) {
-    case FETCH_USER_SUCCESS: 
+    case ActionTypes.FETCH_USER_SUCCESS: 
       return Immutable.fromJS(action.result)
-    case SIGNIN_SUCCESS:
+    case ActionTypes.SIGNIN_SUCCESS:
       return Immutable.fromJS(action.result)
-   case LOGOUT_SUCCESS:
-   case 'CHECK_AUTH_FAILURE':
+   case ActionTypes.LOGOUT_SUCCESS:
+   case ActionTypes.FETCH_USER_FAILURE:
       return state.clear()
     default:
       return state

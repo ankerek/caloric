@@ -51,7 +51,7 @@ export default class FoodItem extends React.Component {
   removeOnClick = () => {
     const item = this.props.item;
 
-    let data = {
+    const data = {
       meal_id: this.props.meal_id,
       item: {
         index: this.props.index,
@@ -61,6 +61,10 @@ export default class FoodItem extends React.Component {
         _id: item.get('_id')
       }
     };
+
+    this.setState({
+      editing: false
+    });
 
     this.props.dispatch(removeMealFood(data))
   };
@@ -108,7 +112,7 @@ export default class FoodItem extends React.Component {
     console.log('renderItem'+item.get('name'));
     return (
       <div>
-        <Col md={6} onClick={this.handleClick.bind(this)}>{item.get('name')} - {item.get('qty')} x {item.get('weight')}g</Col>
+        <Col md={6}>{item.get('name')} - {item.get('qty')} x {item.get('weight')}g</Col>
         <Col md={6}>
           <Button bsStyle="warning" bsSize="small" onClick={this.editOnClick}>Upravit</Button>
         </Col>
@@ -145,7 +149,10 @@ export default class FoodItem extends React.Component {
         </Col>
         <Col md={6}>
           <Button bsStyle="success" onClick={this.finishEdit}>Uložit</Button> {' '}
-          <Button bsStyle="danger" onClick={this.removeOnClick}>Odstranit</Button>
+          <Button bsStyle="danger" onClick={this.removeOnClick}>
+            <i className="fa fa-trash-o" title="Odstranit"></i>
+            <span className="sr-only">Odstranit</span>
+          </Button>
         </Col>
       </div>
     )

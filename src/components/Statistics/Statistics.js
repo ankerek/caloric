@@ -24,7 +24,8 @@ nvOptions.unshift({value: 'main', label: 'Energetický příjem rozdělený do m
 
 @connect(
   state => ({
-    statistics: state.statistics.get('map')
+    statistics: state.statistics.get('map'),
+    loading: state.statistics.get('loading')
   })
 )
 export default class Statistics extends React.Component {
@@ -98,8 +99,8 @@ export default class Statistics extends React.Component {
   };
 
   changeRange = ({year, month}) => {
-    let first = moment(this.state.range.first);
-    let last = moment(this.state.range.last);
+    let first = moment.utc(this.state.range.first);
+    let last = moment.utc(this.state.range.last);
     if(year) {
       first.year(year);
       last.year(year);
@@ -191,6 +192,7 @@ export default class Statistics extends React.Component {
   };
 
   render() {
+    const { loading } = this.props;
     const nv = this.state.nv;
     const currentYear = new Date().getFullYear();
 
@@ -203,10 +205,11 @@ export default class Statistics extends React.Component {
     const yearsOptions = years.map(year => <option value={year} key={year}>{year}</option>);
     let monthsOptions = D_MONTHS.map((month, i) => <option value={i} key={i}>{month}</option>);
     monthsOptions.unshift(<option key={-1}>Vyberte měsíc</option>);
-
+    console.log('stat');
     return (
       <div>
-        <h1>Statistika</h1>
+        <h1>Statistika {loading && <i className="fa fa-refresh fa-spin fa-fw margin-bottom" aria-hidden="true"></i>}
+          <span className="sr-only">Načítám...</span></h1>
         <Helmet title="Statistika"/>
         <Row>
           <Col md={6}>

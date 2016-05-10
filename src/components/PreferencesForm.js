@@ -256,7 +256,7 @@ export default class PreferencesForm extends React.Component {
           </Col>
         </Row>
         {dirty && notSaved()}
-        <Button type="submit" bsStyle="success" bsSize="large" disabled={submitting}>Uložit</Button>
+        <Button type="submit" bsStyle="success" bsSize="large" disabled={submitting}><i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Uložit</Button>
       </form>
     )
   }

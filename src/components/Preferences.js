@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { fetchPreferences, updatePreferences } from '../actions/forms'
+import { fetchPreferences, updatePreferences } from '../actions/preferences'
 import { timestampFromObjectId } from '../utils/utils'
 import { calculateBmr, calculateTee, calculateNutritionValue } from '../utils/preferences'
 
@@ -52,7 +52,7 @@ export default class Preferences extends React.Component {
 
     
 
-    this.props.dispatch(updatePreferences(preferences));
+    return this.props.dispatch(updatePreferences(preferences));
   }
 
   render() {

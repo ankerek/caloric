@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import config from '../config'
 import { browserHistory } from 'react-router'
 import { logout } from '../actions/auth'
 
@@ -9,7 +10,7 @@ export function generateToken(user) {
   };
 
   return jwt.sign(u, 'tajnyKlic', {
-    expiresIn: 60 * 60 * 24 // expires in 24 hours
+    expiresIn: config.authExpiration
   });
 }
 

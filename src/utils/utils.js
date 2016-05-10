@@ -27,7 +27,7 @@ export function timestampFromObjectId(objectId) {
 
 export function countNutrient(value, totalWeight) {
 	//value in micrograms to grams
-	return Math.round(value * totalWeight * 1000000)/1000000;
+	return (value * totalWeight);
 }
 
 

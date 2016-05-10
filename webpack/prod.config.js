@@ -3,14 +3,12 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var strip = require("strip-loader");
 
-const host = process.env.HOST || 'localhost';
-const port = (process.env.PORT) || 8080;
 
 module.exports = {
   devtool: 'source-map',
   entry: [
     './src/main',
-    //'./src/stylesheets/main.scss'
+    'font-awesome-webpack!./src/theme/font-awesome.config.prod.js'
   ],
   output: {
     path: path.join(__dirname, '../static/dist'),
@@ -26,7 +24,16 @@ module.exports = {
         include: path.join(__dirname, '..', 'src'),
       },
       { test: /\.css$/, loader: 'style!css' },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=' + path.resolve(__dirname, '..', './node_modules/compass-mixins/lib'))}
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=' + path.resolve(__dirname, '..', './node_modules/compass-mixins/lib'))},
+      { test: /\.less$/, loader: 'style!css!less' },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
+      }
 
     ]
   },
@@ -46,16 +53,6 @@ module.exports = {
         warnings: false
       }
     }),
-
-    // Write out stats.json file to build directory.
-    // new StatsWriterPlugin({
-    //   transform: function (data) {
-    //     return {
-    //       main: data.assetsByChunkName.main[0],
-    //       css: data.assetsByChunkName.main[1]
-    //     };
-    //   }
-    // })
     
 
     
