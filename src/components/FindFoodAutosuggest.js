@@ -2,11 +2,15 @@ import React, {PropTypes} from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Autosuggest from 'react-autosuggest'
 import 'isomorphic-fetch'
-import {removeDiacritics} from '../functions'
+import { removeDiacritics } from '../utils/removeDiacritics'
 import { debounce } from '../utils/utils'
 
 
-class FindFoodInput extends React.Component {
+class FindFoodAutosuggest extends React.Component {
+	static propTypes = {
+	  onUpdate: PropTypes.func.isRequired
+	};
+	
 	constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +44,7 @@ class FindFoodInput extends React.Component {
 	      isLoading: true
 	    });
 
-	    fetch('/api/food/' + valueKey)
+	    fetch('/api/food-list/' + valueKey)
 		    .then((response) => {
 	        const json = response.json();
 	        if (response.status >= 200 && response.status < 300) return json;
@@ -148,8 +152,4 @@ class FindFoodInput extends React.Component {
   }
 }
 
-FindFoodInput.propTypes = {
-  onUpdate: PropTypes.func.isRequired
-}
-
-export default FindFoodInput
+export default FindFoodAutosuggest

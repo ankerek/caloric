@@ -1,7 +1,9 @@
 import moment from 'moment'
 import * as ActionTypes from '../actions'
 
-const preferences = (state = {}, action) => {
+const initialState = {};
+
+const preferences = (state = initialState, action) => {
   //if (!(state instanceof InitialState)) return revive(state);
   switch (action.type) {
     case ActionTypes.FETCH_PREFERENCES_SUCCESS: 
@@ -17,6 +19,8 @@ const preferences = (state = {}, action) => {
       }
 
       return preferences
+    case ActionTypes.FETCH_PREFERENCES_FAILURE: 
+      return initialState;
     default:
       return state
   }

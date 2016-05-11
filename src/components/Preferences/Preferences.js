@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { fetchPreferences, updatePreferences } from '../actions/preferences'
-import { timestampFromObjectId } from '../utils/utils'
-import { calculateBmr, calculateTee, calculateNutritionValue } from '../utils/preferences'
+import { fetchPreferences, updatePreferences } from '../../actions/preferences'
+import { timestampFromObjectId } from '../../utils/utils'
+import { calculateBmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
 
 import PreferencesForm from './PreferencesForm'
 
@@ -58,7 +58,7 @@ export default class Preferences extends React.Component {
   render() {
 
     const {preferences} = this.props;
-    const calculated = () => {
+    const Calculated = () => {
       if(preferences.gender && preferences.birthday && preferences.weight && preferences.height && preferences.activityFactor) {
 
         return (
@@ -76,19 +76,10 @@ export default class Preferences extends React.Component {
         <Helmet title="Předvolby"/>
         {preferences && preferences._id && <p>Předvolby naposled vyplněny dne {moment(timestampFromObjectId(preferences._id)).format('LL')}</p>}
         
-        <PreferencesForm initialValues={preferences} onSubmit={this.handleSubmit.bind(this)} calculated={calculated} />
+        <PreferencesForm initialValues={preferences} onSubmit={this.handleSubmit.bind(this)} Calculated={Calculated} />
           
 
       </div>
     )
   }
 }
-
-
-// const mapStateToProps = (state) => {
-//   console.log(state);
-//   return {
-//     preferences: state.preferences,
-//     //preferences: state.preferences && state.preferences.has('birthday') && state.preferences.get('birthday') != null ? state.preferences.set('birthday', moment(state.preferences.get('birthday')).format('D.M.YYYY') ) : state.preferences,
-//   }
-// }

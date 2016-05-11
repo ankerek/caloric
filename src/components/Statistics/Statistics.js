@@ -205,7 +205,7 @@ export default class Statistics extends React.Component {
     const yearsOptions = years.map(year => <option value={year} key={year}>{year}</option>);
     let monthsOptions = D_MONTHS.map((month, i) => <option value={i} key={i}>{month}</option>);
     monthsOptions.unshift(<option key={-1}>Vyberte měsíc</option>);
-    console.log('stat');
+
     return (
       <div>
         <h1>Statistika {loading && <i className="fa fa-refresh fa-spin fa-fw margin-bottom" aria-hidden="true"></i>}

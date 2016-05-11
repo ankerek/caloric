@@ -29,7 +29,18 @@ router.get('/food', function(req, res) {
 	});
 });
 
-router.get('/food/:name', function(req, res, next) {
+router.get('/food/:id', function(req, res, next) {
+
+  Food.findOne({_id: req.params.id }, function(err, food) {
+    if (err) return next(err);
+
+    res.json(food ? food : {});
+  });
+});
+
+
+
+router.get('/food-list/:name', function(req, res, next) {
 	const arr = req.params.name.split(' ');
 
 	//or (var i = 0; i < arr.length; i++) arr[i] = new RegExp('^'+arr[i] );
@@ -61,6 +72,86 @@ router.get('/set-food', function(req, res) {
   });
 });
 
+function isUserUnique(reqBody, cb) {
+  const username = reqBody.username ? reqBody.username.trim() : '';
+  const email = reqBody.email ? reqBody.email.trim() : '';
+
+  User.findOne({
+    $or: [{
+      'username': new RegExp(['^', username, '$'].join(''), 'i')
+    }, {
+      'email': new RegExp(['^', email, '$'].join(''), 'i')
+    }]
+  }, function(err, user) {
+    if (err) return next(err);
+
+    if (!user) {
+      cb();
+      return;
+    }
+
+    let error;
+    if (user.username === username || user.email === email) error = 'Uživatelské jméno nebo e-mail již existuje.';
+
+    cb(error);
+  });
+}
+
+router.post('/signin', function(req, res, next) {
+  const body = req.body;
+
+
+  User.findOne({username: body.username}, function(err, user) {
+    if (err) return next(err);
+
+    if (!user) {
+      return res.status(401).json('Uživatelské jméno neexistuje.');
+    }
+
+    bcrypt.compare(body.password, user.password, function(err, valid) {
+      if (!valid) {
+        return res.status(401).json('Uživatelské jméno nebo heslo je špatně.');
+      }
+
+      const cleanUser = getCleanUser(user);
+      const token = generateToken(cleanUser);
+
+      res.json({
+        user: cleanUser,
+        token
+      });
+    });
+  });
+});
+
+router.post('/signup', function(req, res, next) {
+  const body = req.body;
+
+  if(!body.username || !body.email || !body.password) return next();
+
+  isUserUnique(body, function(err) {
+    if (err) {
+      return res.status(400).json(err);
+    }
+
+    const hash = bcrypt.hashSync(body.password.trim(), 10);
+    const user = new User({
+      username: body.username.trim(),
+      email: body.email.trim(),
+      password: hash
+    });
+
+    user.save(function(err, user) {
+      if (err) return next(err);
+
+      const cleanUser = getCleanUser(user);
+      const token = generateToken(user);
+
+      res.json({ user: cleanUser, token });
+    });
+
+  });
+});
 
 //auth routes
 //
@@ -329,31 +420,6 @@ router.put('/preferences/:id', function(req, res, next) {
 });
 
 
-function isUserUnique(reqBody, cb) {
-  const username = reqBody.username ? reqBody.username.trim() : '';
-  const email = reqBody.email ? reqBody.email.trim() : '';
-
-  User.findOne({
-    $or: [{
-      'username': new RegExp(['^', username, '$'].join(''), 'i')
-    }, {
-      'email': new RegExp(['^', email, '$'].join(''), 'i')
-    }]
-  }, function(err, user) {
-    if (err) return next(err);
-
-    if (!user) {
-      cb();
-      return;
-    }
-
-    let error;
-    if (user.username === username || user.email === email) error = 'Uživatelské jméno nebo e-mail již existuje.';
-
-    cb(error);
-  });
-}
-
 router.get('/check-auth', function(req, res, next) {
 
   const token = extractToken(req.headers.authorization);
@@ -362,7 +428,7 @@ router.get('/check-auth', function(req, res, next) {
     return res.status(401).json('Token není k dispozici.');
   }
 
-  jwt.verify(token, 'tajnyKlic', function(err) {
+  jwt.verify(token, config.secret, function(err) {
     if (err) return next(err);
 
     res.json();
@@ -396,60 +462,6 @@ router.get('/user', function(req, res, next) {
 
 
 
-router.post('/signin', function(req, res, next) {
-  const body = req.body;
 
-
-  User.findOne({username: body.username}, function(err, user) {
-    if (err) return next(err);
-
-    if (!user) {
-      return res.status(401).json('Uživatelské jméno neexistuje.');
-    }
-
-    bcrypt.compare(body.password, user.password, function(err, valid) {
-      if (!valid) {
-        return res.status(401).json('Uživatelské jméno nebo heslo je špatně.');
-      }
-
-      const cleanUser = getCleanUser(user);
-      const token = generateToken(cleanUser);
-
-      res.json({
-        user: cleanUser,
-        token
-      });
-    });
-  });
-});
-
-router.post('/signup', function(req, res, next) {
-  const body = req.body;
-
-  if(!body.username || !body.email || !body.password) return next();
-
-  isUserUnique(body, function(err) {
-    if (err) {
-      return res.status(400).json(err);
-    }
-
-    const hash = bcrypt.hashSync(body.password.trim(), 10);
-    const user = new User({
-      username: body.username.trim(),
-      email: body.email.trim(),
-      password: hash
-    });
-
-    user.save(function(err, user) {
-      if (err) return next(err);
-
-      const cleanUser = getCleanUser(user);
-      const token = generateToken(user);
-
-      res.json({ user: cleanUser, token });
-    });
-
-  });
-});
 
 export default router

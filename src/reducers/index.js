@@ -7,6 +7,7 @@ import nutritionValues from './nutritionValues'
 import preferences from './preferences'
 import notification from './notification'
 import statistics from './statistics'
+import food from './food'
 
 // const routing = (state = {}, action) => {
 //   switch (action.type) {
@@ -27,5 +28,6 @@ export default combineReducers({
   preferences,
   statistics,
   notification,
+  food,
   form
 });

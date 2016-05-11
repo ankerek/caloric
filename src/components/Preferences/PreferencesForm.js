@@ -1,56 +1,14 @@
-import React from 'react';
+import React from 'react'
 import { reduxForm } from 'redux-form'
 import moment from 'moment'
 import { Row, Col, Button, Panel, Table, Alert } from 'react-bootstrap'
-import Select from 'react-select'
-import PureInput from './PureInput'
+import NutritionValues from './NutritionValues'
+import SelectNutritionValue from './SelectNutritionValue'
+import PureInput from './../PureInput'
 
-import { calculateNutritionValue } from '../utils/preferences'
+import { calculateNutritionValue } from '../../utils/preferences'
 
-import { D_NUTRITION_VALUES } from '../dictionary'
-
-class SelectNutritionValue extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      nvToChoose: null
-    };
-  }
-
-  nvToChooseOnChange = (option) => {
-    this.setState({
-      nvToChoose: option ? option.value : null
-    });
-  };
-
-  render() {
-    const { options, addNutritionValue } = this.props;
-    return (
-      <div>
-      {options.length > 0 && 
-        <Row>
-        <Col xs={8}><div className="form-group"><label>Přidat nutriční hodnotu ke sledování</label>
-        <Select
-          name="select-nutrition-values"
-          placeholder="Vyberte nutriční hodnotu"
-          options={options}
-          onChange={this.nvToChooseOnChange}
-          value={this.state.nvToChoose}
-        />
-        {/*<select className="form-control" ref="nutritionValuesToChoose">{nutritionValuesToChoose}</select>*/}</div></Col>
-        <Col xs={4}>
-          <Button bsStyle="primary" style={{marginTop: '24px'}} disabled={this.state.nvToChoose ? false : true} onClick={() => {
-            addNutritionValue(this.state.nvToChoose);
-          }}><i/> Přidat
-          </Button>
-        </Col>
-        </Row>
-      }
-      </div>
-      )
-  }
-}
+import { D_NUTRITION_VALUES } from '../../dictionary'
 
 
 const validate = values => {
@@ -69,7 +27,7 @@ const validate = values => {
   return errors;
 };
 
-const notSaved = () => {
+const NotSaved = () => {
   return (<Alert bsStyle="warning">Nezapomeňte uložit změny</Alert>);
 };
 
@@ -91,7 +49,6 @@ export default class PreferencesForm extends React.Component {
   }
 
   addNutritionValue = (type) => {
-    console.log(type);
     this.props.fields.nutritionValues.addField({ 
       type,
       goal: calculateNutritionValue({type, preferences: this.preferences}),
@@ -110,7 +67,7 @@ export default class PreferencesForm extends React.Component {
       handleSubmit,
       //resetForm,
       submitting,
-      calculated
+      Calculated
     } = this.props;
 
     this.preferences = {
@@ -165,7 +122,7 @@ export default class PreferencesForm extends React.Component {
               </select>
               {activityFactor.error && activityFactor.touched && <span className="help-block">{activityFactor.error}</span>}
             </div>
-            <Panel collapsible header="Zobrazit informace o aktivitách">
+            <Panel collapsible header="Zobrazit informace o fyzických aktivitách">
               <Table responsive>
                 <thead>
                   <tr>
@@ -208,54 +165,12 @@ export default class PreferencesForm extends React.Component {
           </Col>
           <Col md={6}>
             <h3>Doporučené hodnoty na den</h3>
-            <div className="form-group">
-              { calculated() }
-            </div>
+            <Calculated />
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <h3>Cíle</h3>
-            <p>Cíle se doplňují automaticky z vypočtených hodnot. Můžete si ale nastavit vlastní.</p>
-
-            {nutritionValues.map((nutritionValue, index) => 
-              <Row key={index}>
-                <Col xs={8}>
-                  <div className="form-group">  
-                    <label>{D_NUTRITION_VALUES[nutritionValue.type.value].label}</label>
-                    <div className="input-group">
-                      <input type="number" className="form-control" disabled={nutritionValue.auto.value} {...nutritionValue.goal} />
-                      <div className="input-group-addon">{D_NUTRITION_VALUES[nutritionValue.type.value].unit}</div>
-                    </div>
-                  </div>
-                </Col>
-                <Col xs={4}>
-                  <Button bsStyle="warning" style={{marginTop: '24px'}} onClick={() => {
-                    nutritionValue.auto.onChange(false);
-                  }}>Upravit</Button>{' '}
-                  <Button bsStyle="info" style={{marginTop: '24px'}} onClick={() => {
-                    nutritionValue.auto.onChange(true);
-                    nutritionValue.goal.onChange(calculateNutritionValue({type: nutritionValue.type.value, preferences: this.preferences}));
-                  }}>Automaticky doplňovat</Button>{' '}
-                  {
-                    D_NUTRITION_VALUES[nutritionValue.type.value].weight !== 0 ? 
-                      <Button bsStyle="danger" style={{marginTop: '24px'}} onClick={() => {
-                        nutritionValues.removeField(index)
-                      }}>Odstranit</Button>
-                     : null
-                  }
-                  
-                </Col>
-              </Row>
-            )}
-
-            <SelectNutritionValue options={nutritionValuesToChoose} addNutritionValue={this.addNutritionValue} />
-            
-
-
-          </Col>
-        </Row>
-        {dirty && notSaved()}
+        <NutritionValues nutritionValues={nutritionValues} preferences={this.preferences} />
+        <SelectNutritionValue options={nutritionValuesToChoose} addNutritionValue={this.addNutritionValue} />
+        {dirty && <NotSaved />}
         <Button type="submit" bsStyle="success" bsSize="large" disabled={submitting}><i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Uložit</Button>
       </form>
     )

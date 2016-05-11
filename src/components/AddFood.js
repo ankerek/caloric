@@ -7,7 +7,7 @@ import {D_MEAL_TYPES} from '../dictionary'
 
 import { Button, FormGroup, InputGroup, FormControl, Row, Col } from 'react-bootstrap'
 
-import FindFoodInput from './FindFoodInput'
+import FindFoodAutosuggest from './FindFoodAutosuggest'
 
 @connect()
 export default class AddFood extends React.Component {
@@ -34,7 +34,7 @@ export default class AddFood extends React.Component {
       qty: '',
       weight: ''
     });
-    this.refs.FindFoodInput.reset();
+    this.refs.FindFoodAutosuggest.reset();
   };
 
   qtyOnChange = (event) => {
@@ -93,7 +93,7 @@ export default class AddFood extends React.Component {
     	<form onSubmit={this.handleSubmit.bind(this)}>
 	    	<Row>
 	    		<Col xs={12} sm={4} md={5}>
-	    			<FindFoodInput onUpdate={this._findFoodOnUpdate} ref="FindFoodInput" />
+	    			<FindFoodAutosuggest onUpdate={this._findFoodOnUpdate} ref="FindFoodAutosuggest" />
 				 	</Col>
 				 	<Col xs={3} sm={2} md={2}>
             <FormGroup>

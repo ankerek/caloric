@@ -35,6 +35,13 @@ export default class Header extends React.Component {
                 <NavItem>Předvolby</NavItem>
               </LinkContainer>
             </NavDropdown>}
+
+            <LinkContainer to="/potraviny">
+              <NavItem>Potraviny</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/potravina/banan">
+              <NavItem>Potravina</NavItem>
+            </LinkContainer>
           </Nav>
           
           { isUser && 

@@ -4,10 +4,27 @@ import { browserHistory } from 'react-router'
 import Helmet from 'react-helmet'
 import { signin } from '../actions/auth'
 
-class SignInForm extends React.Component {
-	constructor(props) {
-    super(props);
+
+const validate = values => {
+  const errors = {};
+  if (!values.username) {
+    errors.username = 'Uživatelské jméno je povinné';
   }
+  if (!values.password) {
+    errors.password = 'Heslo je povinné';
+  }
+  return errors;
+};
+
+@reduxForm({
+    form: 'signin',
+    fields: ['username', 'password'],
+    validate
+  },
+  undefined,
+  { dispatchSignin: signin }
+)
+export default class SignInForm extends React.Component {
 
   render() {
 
@@ -32,7 +49,6 @@ class SignInForm extends React.Component {
 
           <button className="btn btn-success" disabled={submitting}
             onClick={handleSubmit((data) => dispatchSignin(data).then((result) => {
-              console.log(result);
               if(result.status !== 'error') browserHistory.push('/');
             }))}
             > Přihlásit se
@@ -42,27 +58,3 @@ class SignInForm extends React.Component {
     )
   }
 }
-
-const validate = values => {
-  const errors = {};
-  if (!values.username) {
-    errors.username = 'Uživatelské jméno je povinné';
-  }
-  if (!values.password) {
-    errors.password = 'Heslo je povinné';
-  }
-  return errors;
-};
-
-const form = reduxForm({
-  form: 'signin',
-  fields: ['username', 'password'],
-  validate
-},
-undefined,
-{dispatchSignin: signin}
-)
-
-
-
-export default form(SignInForm)

@@ -5,10 +5,32 @@ import { signup } from '../actions/auth'
 
 if ( process.env.BROWSER ) var humane = require('../utils/utils').humane;
 
-class SignUpForm extends React.Component {
-	constructor(props) {
-    super(props);
+
+const validate = (values) => {
+  const errors = {};
+  if (!values.username) {
+    errors.username = 'Uživatelské jméno je povinné';
+  } else if (values.username.length < 3) errors.username = 'Uživatelské jméno musí mít alespoň tři znaky';
+  if (!values.email) {
+    errors.email = 'E-mail je povinný';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'E-mail je ve špatném formátu';
   }
+  if (!values.password) {
+    errors.password = 'Heslo je povinné';
+  }
+  return errors;
+};
+
+@reduxForm({
+    form: 'signup',
+    fields: ['username', 'password', 'email'],
+    validate
+  },
+  undefined,
+  { dispatchSignup: signup }
+)
+export default class SignUpForm extends React.Component {
 
   render() {
 
@@ -44,33 +66,3 @@ class SignUpForm extends React.Component {
     )
   }
 }
-
-
-const validate = values => {
-  const errors = {};
-  if (!values.username) {
-    errors.username = 'Uživatelské jméno je povinné';
-  } else if (values.username.length < 3) errors.username = 'Uživatelské jméno musí mít alespoň tři znaky';
-  if (!values.email) {
-    errors.email = 'E-mail je povinný';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'E-mail je ve špatném formátu';
-  }
-  if (!values.password) {
-    errors.password = 'Heslo je povinné';
-  }
-  return errors;
-};
-
-
-const form = reduxForm({
-  form: 'signup',
-  fields: ['username', 'password', 'email'],
-  validate
-},
-undefined,
-{dispatchSignup: signup})
-
-
-
-export default form(SignUpForm)

@@ -7,7 +7,7 @@ const port = config.port + 1;
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    //'react-hot-loader/patch',
+    'react-hot-loader/patch',
     'webpack-dev-server/client?http://' + config.host + ':' + port,
     'font-awesome-webpack!./src/theme/font-awesome.config.js',
     'webpack/hot/only-dev-server',
@@ -35,7 +35,7 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?/,
-        loader: 'react-hot!babel',
+        loader: 'babel',
         include: path.join(__dirname, '..', 'src'),
         // query: {
         //   presets: ['react-hmre']

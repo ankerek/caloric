@@ -5,22 +5,26 @@ import { logout } from './actions/auth'
 import Diary from './components/Diary'
 import Main from './components/Main'
 import Settings from './components/Settings'
-import Preferences from './components/Preferences'
+import Preferences from './components/Preferences/Preferences'
 import SignUpForm from './components/SignUpForm'
 import SignInForm from './components/SignInForm'
 import Statistics from './components/Statistics/Statistics'
+import FoodList from './components/Food/FoodList'
+import FoodDetail from './components/Food/FoodDetail'
 
 
 const routes = (
   <Route path="/" component={Main}>
     <Route requireAuth>
-      <IndexRoute component={Diary} shitfuck />
+      <IndexRoute component={Diary} />
       <Route path="/jidelnicek/:date" component={Diary} />
       <Route path="/statistika" component={Statistics} />
       <Route path="/nastaveni" component={Settings}>
         <Route path="predvolby" component={Preferences} />
       </Route>
     </Route>
+    <Route path="/potraviny" component={FoodList} />
+    <Route path="/potravina/:name" component={FoodDetail} />
     <Route noAuth>
       <Route path="/registrace" component={SignUpForm} />
       <Route path="/prihlaseni" component={SignInForm} />
@@ -70,22 +74,22 @@ export default (store) => {
     return route;
   }
 
-  // return walk(createRoutes(routes), route => {
-  //   if(route.requireAuth) assignOnEnter(route, requireAuth);
-  //   else if(route.noAuth) assignOnEnter(route, noAuth);
-  // });
-  return (
-    <Route path="/" component={Main}>
-        <IndexRoute component={Diary} onEnter={requireAuth} />
-        <Route path="/jidelnicek/:date" component={Diary} onEnter={requireAuth} />
-        <Route path="/statistika" component={Statistics} onEnter={requireAuth} />
-        <Route path="/nastaveni" component={Settings} onEnter={requireAuth}>
-          <Route path="predvolby" component={Preferences} onEnter={requireAuth} />
-        </Route>
-        <Route path="/registrace" component={SignUpForm} onEnter={noAuth} />
-        <Route path="/prihlaseni" component={SignInForm} onEnter={noAuth} />
-    </Route>
-  )
+  return walk(createRoutes(routes), route => {
+    if(route.requireAuth) assignOnEnter(route, requireAuth);
+    else if(route.noAuth) assignOnEnter(route, noAuth);
+  });
+  // return (
+  //   <Route path="/" component={Main}>
+  //       <IndexRoute component={Diary} onEnter={requireAuth} />
+  //       <Route path="/jidelnicek/:date" component={Diary} onEnter={requireAuth} />
+  //       <Route path="/statistika" component={Statistics} onEnter={requireAuth} />
+  //       <Route path="/nastaveni" component={Settings} onEnter={requireAuth}>
+  //         <Route path="predvolby" component={Preferences} onEnter={requireAuth} />
+  //       </Route>
+  //       <Route path="/registrace" component={SignUpForm} onEnter={noAuth} />
+  //       <Route path="/prihlaseni" component={SignInForm} onEnter={noAuth} />
+  //   </Route>
+  // )
 };
 
 

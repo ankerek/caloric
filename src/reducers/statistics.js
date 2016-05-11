@@ -28,7 +28,6 @@ const statistics = (state = initialState, action) => {
       return state.set('loading', false);
 
     case ActionTypes.FETCH_PREFERENCES_FOR_STATS_SUCCESS:
-      console.log('fds')
 
       let nutritionValues = Immutable.Map();
 

@@ -131,7 +131,7 @@ export default class FoodItem extends React.Component {
               //defaultValue={item.get('qty')} 
               type="number" 
               value={this.state.qty} onChange={this.qtyOnChange}
-              min="1"            
+              min="1" max="10000"       
               required />
               <InputGroup.Addon>ks</InputGroup.Addon>
             </InputGroup>
@@ -142,7 +142,7 @@ export default class FoodItem extends React.Component {
               //defaultValue={item.get('weight')} 
               type="number" 
               value={this.state.weight} onChange={this.weightOnChange}
-              min="1" 
+              min="1" max="10000"
               required />
             <InputGroup.Addon>g</InputGroup.Addon>
           </InputGroup>

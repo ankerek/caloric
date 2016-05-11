@@ -55,12 +55,13 @@ export default class Diary extends React.Component {
     const {meals, nutritionValues, loadingMeals} = this.props;
 
     const timestamp = getTimestampFromParams(this.props.params);
+    const title = "Jídelníček";
   	
     return (
       <div className="main">
-        <h1>Jídelníček {loadingMeals && <i className="fa fa-refresh fa-spin fa-fw margin-bottom" aria-hidden="true"></i>}
+        <h1>{title} {loadingMeals && <i className="fa fa-refresh fa-spin fa-fw margin-bottom" aria-hidden="true"></i>}
           <span className="sr-only">Načítám...</span></h1>
-        <Helmet title="Jídelníček"/>
+        <Helmet title={title}/>
         <DayNavigation timestamp={timestamp} />
 
         <AddFood timestamp={timestamp} meals={meals} loading={loadingMeals} />
