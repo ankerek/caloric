@@ -13,13 +13,14 @@ export default class FoodListItems extends React.Component {
   render() {
     const { list, filters } = this.props;
 
+    filters.map((filter, j) => console.log(filter.get('value')));
 
     const foodList = list.map((item, i) => {
       return (
         <tr key={i}>
           <td>{item.get('name')}</td>
           {
-            filters.map((filter, j) => <td key={j}>{item.has(filter.value) ? item.get(filter.get('value')) / 10000 : 0}</td>)
+            filters.map((filter, j) => <td key={j}>{item.has(filter.get('value')) ? item.get(filter.get('value')) / 10000 : 0}</td>)
           }
         </tr>
       );
