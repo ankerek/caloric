@@ -19,12 +19,21 @@ export default class Header extends React.Component {
       <Navbar staticTop={true}>
         <Navbar.Header>
           <Navbar.Brand>
-            <IndexLink to="/">Caloric</IndexLink>
+            <IndexLink to="/">Jídelníček</IndexLink>
           </Navbar.Brand>
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <li><IndexLink to="/">Index</IndexLink></li>
+            <NavDropdown title="Potraviny" id="basic-nav-dropdown">
+              <LinkContainer to="/potraviny">
+                <NavItem>Seznam potravin</NavItem>
+              </LinkContainer>
+              {isUser && 
+              <LinkContainer to="/pridat-potravinu">
+                <NavItem>Přidat potravinu</NavItem>
+              </LinkContainer>
+              }
+            </NavDropdown>
             {isUser && 
             <LinkContainer to="/statistika">
               <NavItem>Statistika</NavItem>
@@ -35,13 +44,6 @@ export default class Header extends React.Component {
                 <NavItem>Předvolby</NavItem>
               </LinkContainer>
             </NavDropdown>}
-
-            <LinkContainer to="/potraviny">
-              <NavItem>Potraviny</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/potravina/banan">
-              <NavItem>Potravina</NavItem>
-            </LinkContainer>
           </Nav>
           
           { isUser && 

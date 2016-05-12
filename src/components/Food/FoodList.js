@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Immutable from 'immutable'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
-import { fetchFoodList, resetFoodList, changeFoodListFilters } from '../../actions/food'
+import { fetchFoodList, clearFoodList, changeFoodListFilters } from '../../actions/food'
 import { Row, Col, Table } from 'react-bootstrap'
 
 import FindFoodInput from './FindFoodInput'
@@ -25,14 +25,12 @@ export default class FoodList extends React.Component {
     super(props);
   }
 
-  // componentWillMount() {    
-  //   if(this.props.location && this.props.location.action === 'PUSH') {
-  //     this.constructor.fetchData({ store: this.props, params: this.props.params, baseUrl: '' });
-  //   }
-  // }
-  // 
+  componentWillUnmount() {    
+    this.props.dispatch(clearFoodList());
+  }
+  
   findFoodList = (name) => {
-    if(name.length === 0) this.props.dispatch(resetFoodList());
+    if(name.length === 0) this.props.dispatch(clearFoodList());
     else this.props.dispatch(fetchFoodList(name));
   };
 

@@ -11,6 +11,7 @@ import SignInForm from './components/SignInForm'
 import Statistics from './components/Statistics/Statistics'
 import FoodList from './components/Food/FoodList'
 import FoodDetail from './components/Food/FoodDetail'
+import FoodDetailEdit from './components/Food/FoodDetailEdit'
 
 
 const routes = (
@@ -24,7 +25,9 @@ const routes = (
       </Route>
     </Route>
     <Route path="/potraviny" component={FoodList} />
-    <Route path="/potravina/:name" component={FoodDetail} />
+    <Route path="/pridat-potravinu" component={FoodDetailEdit} />
+    <Route path="/potravina/:id" component={FoodDetail} />
+    <Route path="/potravina/:id/formular" component={FoodDetailEdit} />
     <Route noAuth>
       <Route path="/registrace" component={SignUpForm} />
       <Route path="/prihlaseni" component={SignInForm} />
@@ -74,22 +77,26 @@ export default (store) => {
     return route;
   }
 
-  return walk(createRoutes(routes), route => {
-    if(route.requireAuth) assignOnEnter(route, requireAuth);
-    else if(route.noAuth) assignOnEnter(route, noAuth);
-  });
-  // return (
-  //   <Route path="/" component={Main}>
-  //       <IndexRoute component={Diary} onEnter={requireAuth} />
-  //       <Route path="/jidelnicek/:date" component={Diary} onEnter={requireAuth} />
-  //       <Route path="/statistika" component={Statistics} onEnter={requireAuth} />
-  //       <Route path="/nastaveni" component={Settings} onEnter={requireAuth}>
-  //         <Route path="predvolby" component={Preferences} onEnter={requireAuth} />
-  //       </Route>
-  //       <Route path="/registrace" component={SignUpForm} onEnter={noAuth} />
-  //       <Route path="/prihlaseni" component={SignInForm} onEnter={noAuth} />
-  //   </Route>
-  // )
+  // return walk(createRoutes(routes), route => {
+  //   if(route.requireAuth) assignOnEnter(route, requireAuth);
+  //   else if(route.noAuth) assignOnEnter(route, noAuth);
+  // });
+  return (
+    <Route path="/" component={Main}>
+      <IndexRoute component={Diary} onEnter={requireAuth} />
+      <Route path="/jidelnicek/:date" component={Diary} onEnter={requireAuth} />
+      <Route path="/statistika" component={Statistics} onEnter={requireAuth} />
+      <Route path="/nastaveni" component={Settings} onEnter={requireAuth}>
+        <Route path="predvolby" component={Preferences} onEnter={requireAuth} />
+      </Route>
+      <Route path="/potraviny" component={FoodList} />
+      <Route path="/pridat-potravinu" component={FoodDetailEdit} />
+      <Route path="/potravina/:id" component={FoodDetail} />
+      <Route path="/potravina/:id/formular" component={FoodDetailEdit} />
+      <Route path="/registrace" component={SignUpForm} onEnter={noAuth} />
+      <Route path="/prihlaseni" component={SignInForm} onEnter={noAuth} />
+    </Route>
+  )
 };
 
 

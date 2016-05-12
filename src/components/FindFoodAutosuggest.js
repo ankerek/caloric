@@ -44,7 +44,7 @@ class FindFoodAutosuggest extends React.Component {
 	      isLoading: true
 	    });
 
-	    fetch('/api/food-list/' + valueKey)
+	    fetch(`/api/food-list/${valueKey}?limit=10`)
 		    .then((response) => {
 	        const json = response.json();
 	        if (response.status >= 200 && response.status < 300) return json;

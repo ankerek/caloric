@@ -1,6 +1,8 @@
 import 'isomorphic-fetch'
+import config from '../config'
 import * as ActionTypes from '.'
 import { removeDiacritics } from '../utils/removeDiacritics'
+
 
 
 export function fetchFoodList(name) {
@@ -13,9 +15,9 @@ export function fetchFoodList(name) {
   }
 }
 
-export function resetFoodList() {
+export function clearFoodList() {
   return {
-    type: ActionTypes.RESET_FOOD_LIST
+    type: ActionTypes.CLEAR_FOOD_LIST
   }
 }
 
@@ -26,28 +28,38 @@ export function changeFoodListFilters(filters) {
   }
 }
 
+export function fetchFoodDetail({ id }) {
 
-// export const updatePreferences = (data) => {
+  return (dispatch) => {
+    return dispatch({
+      types: [ActionTypes.FETCH_FOOD_DETAIL_REQUEST, ActionTypes.FETCH_FOOD_DETAIL_SUCCESS, ActionTypes.FETCH_FOOD_DETAIL_FAILURE],
+      promise: fetch(config.baseUrl + '/api/food/' + id)
+    });
+  }
+}
 
-//   let today = new Date();
-//   today.setUTCHours(0,0,0,0);
+export const updateFood = (data) => {
 
-//   if(!data._id || today.getTime() !== timestampFromObjectId(data._id)) delete data._id; //jestlize to neni dnesni datum predvoleb (starsi), tak se smaze attribut _id a vytvori se novy dokument
+  return (dispatch, getState) => {
+    const token = getState().auth.get('token');
 
-//   return (dispatch, getState) => {
-//     const token = getState().auth.get('token');
+    return dispatch({
+      types: [ActionTypes.UPDATE_FOOD_REQUEST, ActionTypes.UPDATE_FOOD_SUCCESS, ActionTypes.UPDATE_FOOD_FAILURE],
+      promise: fetch('/api/food/'+(data._id ? data._id : ''), {
+        method: data._id ? 'PUT' : 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data })
+      })
+    });
+  }
+}
 
-//     return dispatch({
-//       types: [ActionTypes.UPDATE_PREFERENCES_REQUEST, ActionTypes.UPDATE_PREFERENCES_SUCCESS, ActionTypes.UPDATE_PREFERENCES_FAILURE],
-//       promise: fetch('/api/preferences/'+(data._id ? data._id : ''), {
-//         method: data._id ? 'PUT' : 'POST',
-//         headers: {
-//           'Authorization': 'Bearer ' + token,
-//           'Accept': 'application/json',
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ data })
-//       })
-//     }).then(() => humane.log('Předvolby byly uloženy'));
-//   }
-// }
+export function clearFoodDetail() {
+  return {
+    type: ActionTypes.CLEAR_FOOD_DETAIL
+  }
+}

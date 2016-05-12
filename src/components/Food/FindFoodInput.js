@@ -34,7 +34,6 @@ export default class FindFoodInput extends React.Component {
   };
   
   render() {
-    console.log('re')
     const error = this.state.error;
     return (
       <div>

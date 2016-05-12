@@ -8,9 +8,9 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://' + config.host + ':' + port,
-    'font-awesome-webpack!./src/theme/font-awesome.config.js',
+    'webpack-dev-server/client?http://' + config.host + ':' + port,    
     'webpack/hot/only-dev-server',
+    'font-awesome-webpack!./src/theme/font-awesome.config.js',
     './src/main',
     //'./src/stylesheets/main.scss'
   ],
@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    //new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('development'),

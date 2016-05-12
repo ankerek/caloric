@@ -6,7 +6,7 @@ import NutritionValues from './NutritionValues'
 import SelectNutritionValue from './SelectNutritionValue'
 import PureInput from './../PureInput'
 
-import { calculateNutritionValue } from '../../utils/preferences'
+import { calculateBmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
 
 import { D_NUTRITION_VALUES } from '../../dictionary'
 
@@ -30,6 +30,15 @@ const validate = values => {
 const NotSaved = () => {
   return (<Alert bsStyle="warning">Nezapomeňte uložit změny</Alert>);
 };
+
+const Calculated = ({preferences}) => {
+  return (
+    <div className="bg-info">
+      Bazální metabolismus: {calculateBmr(preferences)} kcal<br />
+      TEE: {calculateTee(preferences)} kcal
+    </div>
+  )
+}
 
 @reduxForm({
   form: 'preferences',
@@ -67,7 +76,6 @@ export default class PreferencesForm extends React.Component {
       handleSubmit,
       //resetForm,
       submitting,
-      Calculated
     } = this.props;
 
     this.preferences = {
@@ -165,7 +173,7 @@ export default class PreferencesForm extends React.Component {
           </Col>
           <Col md={6}>
             <h3>Doporučené hodnoty na den</h3>
-            <Calculated />
+            <Calculated preferences={this.preferences} />
           </Col>
         </Row>
         <NutritionValues nutritionValues={nutritionValues} preferences={this.preferences} />

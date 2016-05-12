@@ -58,17 +58,7 @@ export default class Preferences extends React.Component {
   render() {
 
     const {preferences} = this.props;
-    const Calculated = () => {
-      if(preferences.gender && preferences.birthday && preferences.weight && preferences.height && preferences.activityFactor) {
-
-        return (
-          <div className="bg-info">
-            Bazální metabolismus: {calculateBmr(preferences)} kcal<br />
-            TEE: {calculateTee(preferences)} kcal
-          </div>
-          )
-      } else return 'Pro spočtení doporučených hodnot je třeba zadat všechny předchozí údaje.';
-    }
+    
 
     return (
       <div>
@@ -76,7 +66,7 @@ export default class Preferences extends React.Component {
         <Helmet title="Předvolby"/>
         {preferences && preferences._id && <p>Předvolby naposled vyplněny dne {moment(timestampFromObjectId(preferences._id)).format('LL')}</p>}
         
-        <PreferencesForm initialValues={preferences} onSubmit={this.handleSubmit.bind(this)} Calculated={Calculated} />
+        <PreferencesForm initialValues={preferences} onSubmit={this.handleSubmit.bind(this)} />
           
 
       </div>

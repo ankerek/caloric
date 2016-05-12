@@ -1,17 +1,16 @@
 import React from 'react'
 import { Router, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
-import configureStore from '../utils/configureStore'
-import routes from '../routes'
+import configureRoutes from '../routes'
 
-let initialState = window.__INITIAL_STATE__
 
-const store = configureStore(initialState);
 
-const App = () => {
+
+const App = ({store}) => {
+	const routes = configureRoutes(store);
 	return (
 		<Provider store={store}>
-		  <Router history={browserHistory} children={routes(store)} />
+		  <Router history={browserHistory} children={routes} />
 		</Provider>
 	)
 } 

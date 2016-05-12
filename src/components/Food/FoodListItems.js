@@ -1,6 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Table } from 'react-bootstrap'
+import { Link } from 'react-router'
 import { D_NUTRITION_VALUES } from '../../dictionary'
 
 
@@ -13,12 +14,10 @@ export default class FoodListItems extends React.Component {
   render() {
     const { list, filters } = this.props;
 
-    filters.map((filter, j) => console.log(filter.get('value')));
-
     const foodList = list.map((item, i) => {
       return (
         <tr key={i}>
-          <td>{item.get('name')}</td>
+          <td><Link to={'/potravina/'+item.get('_id')}>{item.get('name')}</Link></td>
           {
             filters.map((filter, j) => <td key={j}>{item.has(filter.get('value')) ? item.get(filter.get('value')) / 10000 : 0}</td>)
           }
@@ -27,7 +26,7 @@ export default class FoodListItems extends React.Component {
     });
     
     return (
-      <Table striped bordered condensed hover>
+      <Table striped bordered condensed hover responsive>
         <thead>
           <tr>
             <th>Název</th>

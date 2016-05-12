@@ -12,24 +12,16 @@ export default class SelectNutritionValues extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   value: [
-    //     { value: 'kcal', label: 'Kilokalorie' },
-    //     { value: 'proteins', label: 'Bílkoviny' },
-    //     { value: 'carbs', label: 'Sacharidy' },
-    //     { value: 'fats', label: 'Tuky' }
-    //   ]
-    // };
-
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   onChange = (value) => {
+    const newValue = value ? value : [];
     this.setState({
-      value
+      newValue
     });
 
-    this.props.changeFilter(value);
+    this.props.changeFilter(newValue);
   };
 
   render() {

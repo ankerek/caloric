@@ -7,8 +7,7 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 
-import indexRoutes from './routes/index'
-import apiRoutes from './routes/api'
+import apiRoutes from './api'
 import config from './config'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
@@ -46,7 +45,6 @@ import Html from './Html'
 
 
   app.use('/api', apiRoutes);
-  app.use('/', indexRoutes);
 
 
   app.use(function(req, res) {
@@ -63,12 +61,11 @@ import Html from './Html'
         console.log( 'error: ', error)
         return res.status(500).send( error.message );
       } else if ( renderProps == null ) {
-        res.status(404).send( 'Not found' );
+        res.status(404).json( 'Stránka nenalezena' );
         //next();
       } else {
 
         getReduxPromise().then(() => {
-          //let initialState = store.getState();
           const component = (
             <Provider store={store}>
               <RouterContext {...renderProps} />
@@ -77,12 +74,12 @@ import Html from './Html'
        
           res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html component={component} store={store}/>));
         })
-        .catch(err => res.end(err.message));
+        .catch(err => res.status(404).json( 'Stránka nenalezena' ));
 
         function getReduxPromise () {
           const { query, params } = renderProps;
 
-          if(params && params.date) if(!isDateStringValid(params.date)) res.status(404).send( 'Not found' );
+          if(params && params.date) if(!isDateStringValid(params.date)) res.status(404).json( 'Not found' );
 
           const baseUrl = req.protocol + '://' + req.get('host');
 

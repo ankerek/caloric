@@ -2,6 +2,8 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
+import configureStore from './utils/configureStore'
+
 import Perf from 'react-addons-perf'
 import App from './components/App'
 
@@ -14,21 +16,25 @@ if ( process.env.BROWSER ) {
 
 const rootEl = document.getElementById('main');
 
+
+
+const initialState = window.__INITIAL_STATE__
+
+const store = configureStore(initialState);
+
 ReactDOM.render(
 	<AppContainer>
-  	<App />
+  	<App store={store} />
   </AppContainer>,
   rootEl
 );
 
 if (module.hot) {
   module.hot.accept('./components/App', () => {
-    // If you use Webpack 2 in ES modules mode, you can
-    // use <App /> here rather than require() a <NextApp />.
     const NextApp = require('./components/App').default;
     ReactDOM.render(
       <AppContainer>
-         <NextApp />
+         <NextApp store={store} />
       </AppContainer>,
       rootEl
     );

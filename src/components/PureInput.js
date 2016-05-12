@@ -11,7 +11,7 @@ class PureInput extends React.Component {
 
   render() {
     const { field, label, addonAfter, ...rest } = this.props;
-
+    
     return (
     	<div className={'form-group ' + (field.error && field.touched && 'has-error')}>
 	  		{label && <label>{label}</label>}
