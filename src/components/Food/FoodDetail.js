@@ -55,7 +55,7 @@ export default class FoodDetail extends React.Component {
         <h1>{title}</h1>
         <Helmet title={title} />
 
-        <Link to={'/potravina/'+food.get('_id')+'/formular'}>Upravit potravinu</Link>
+        <Link to={'/potravina/'+food.get('_id')+'/editace'}>Upravit potravinu</Link>
 
         <form className="form-inline">
           <p className="form-control-static">Zobrazit nutriční hodnoty na</p>

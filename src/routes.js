@@ -27,7 +27,7 @@ const routes = (
     <Route path="/potraviny" component={FoodList} />
     <Route path="/pridat-potravinu" component={FoodDetailEdit} />
     <Route path="/potravina/:id" component={FoodDetail} />
-    <Route path="/potravina/:id/formular" component={FoodDetailEdit} />
+    <Route path="/potravina/:id/editace" component={FoodDetailEdit} />
     <Route noAuth>
       <Route path="/registrace" component={SignUpForm} />
       <Route path="/prihlaseni" component={SignInForm} />
@@ -92,7 +92,7 @@ export default (store) => {
       <Route path="/potraviny" component={FoodList} />
       <Route path="/pridat-potravinu" component={FoodDetailEdit} />
       <Route path="/potravina/:id" component={FoodDetail} />
-      <Route path="/potravina/:id/formular" component={FoodDetailEdit} />
+      <Route path="/potravina/:id/editace" component={FoodDetailEdit} />
       <Route path="/registrace" component={SignUpForm} onEnter={noAuth} />
       <Route path="/prihlaseni" component={SignInForm} onEnter={noAuth} />
     </Route>

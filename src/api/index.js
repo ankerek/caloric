@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 import expressJwt from 'express-jwt'
 import config from '../config'
 
-
 import * as FoodController from './controllers/food'
 import * as UserController from './controllers/user'
 import * as MealController from './controllers/meal'
@@ -21,14 +20,16 @@ const router = express.Router();
 router.route('/update-food')
   .get(FoodController.updateFoodNames)
 
+router.route('/set-food')
+  .get(FoodController.setRandomValues)
+
 router.route('/food/:id')
   .get(FoodController.getById)
 
 router.route('/food-list/:name')
   .get(FoodController.getListByName)
 
-router.route('/set-food')
-  .get(FoodController.setRandomValues)
+
 
 
 //User auth routes
