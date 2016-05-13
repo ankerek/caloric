@@ -13,7 +13,7 @@
     "prod": "NODE_ENV=production node index",
     "prod-windows": "SET NODE_ENV=production&&node index",
     "lint": "eslint src",
-    "preinstall": "npm run build",
+    "postinstall": "npm run build",
     "start": "npm run prod"
   },
   "devDependencies": {
