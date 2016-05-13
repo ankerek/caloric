@@ -92,7 +92,7 @@ export default (store) => {
       <Route path="/potraviny" component={FoodList} />
       <Route path="/pridat-potravinu" component={FoodDetailEdit} />
       <Route path="/potravina/:id" component={FoodDetail} />
-      <Route path="/potravina/:id/editace" component={FoodDetailEdit} />
+      <Route path="/potravina/:id/editace" component={FoodDetailEdit} onEnter={requireAuth} />
       <Route path="/registrace" component={SignUpForm} onEnter={noAuth} />
       <Route path="/prihlaseni" component={SignInForm} onEnter={noAuth} />
     </Route>

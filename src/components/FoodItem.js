@@ -109,7 +109,7 @@ export default class FoodItem extends React.Component {
 
   renderItem() {
     const { item } = this.props;
-    console.log('renderItem'+item.get('name'));
+    //console.log('renderItem'+item.get('name'));
     return (
       <div>
         <Col md={6}>{item.get('name')} - {item.get('qty')} x {item.get('weight')}g</Col>

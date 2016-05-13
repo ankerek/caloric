@@ -31,11 +31,12 @@ export default class FoodDetail extends React.Component {
   handleSubmit = (data) => {
 
     let nData = {...data};
+    let nutritionValues = nData.nutritionValues;
 
-    for(const property in nData) { 
-      if (nData.hasOwnProperty(property)) {
-        if(nData[property] === null) break;
-        else if(property !== 'name' && property !== '_id' && property !== '_name') nData[property] *= 10000;
+    for(const property in nutritionValues) { 
+      if (nutritionValues.hasOwnProperty(property)) {
+        if(nutritionValues[property] == null) break;
+        else nutritionValues[property] *= 10000;
       }
     }
 

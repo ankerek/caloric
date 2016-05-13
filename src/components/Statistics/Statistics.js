@@ -10,12 +10,12 @@ import { Row, Col } from 'react-bootstrap'
 import MainGraph  from './MainGraph'
 import NVGraph  from './NVGraph'
 
-import { D_NUTRITION_VALUES, D_MONTHS } from '../../dictionary'
+import { D_NVS, D_MONTHS } from '../../dictionary'
 
-let nvOptions = Object.keys(D_NUTRITION_VALUES).map((type) => {
+let nvOptions = Object.keys(D_NVS).map((type) => {
   return {
     value: type,
-    label: D_NUTRITION_VALUES[type].label
+    label: D_NVS[type].label
   }
 });
 

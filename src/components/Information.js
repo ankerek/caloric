@@ -13,7 +13,7 @@ class Information extends React.Component {
   render() {
 
     const {nutritionValues} = this.props;
-    console.log('Information');
+    //console.log('Information');
 
     const items = nutritionValues.map( (item, i) => {
       return (

@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import * as ActionTypes from '../actions'
-import { D_NUTRITION_VALUES } from '../dictionary'
+import { D_NVS } from '../dictionary'
 import { timestampFromObjectId } from '../utils/utils'
 
 const InitialState = Immutable.Record({
@@ -31,7 +31,7 @@ const statistics = (state = initialState, action) => {
 
       let nutritionValues = Immutable.Map();
 
-      for(const property in D_NUTRITION_VALUES) {
+      for(const property in D_NVS) {
         nutritionValues = nutritionValues.set(property, Immutable.fromJS({
           goals: action.result.reduce((previous, current) => {
             const value = current.nutritionValues.find((nv) => nv.type === property);

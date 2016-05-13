@@ -3,9 +3,9 @@ import { reduxForm } from 'redux-form'
 import Helmet from 'react-helmet'
 import PureInput from '../PureInput'
 import { Row, Col, Button, Alert } from 'react-bootstrap'
-import { D_NUTRITION_VALUES } from '../../dictionary'
+import { D_NVS, D_NVS_KEYS } from '../../dictionary'
 
-const fields = [...Object.keys(D_NUTRITION_VALUES).map((nv) => nv), '_id', 'name'];
+const nvFields = D_NVS_KEYS.map((nv) => `nutritionValues.${nv}`);
 
 
 const validate = values => {
@@ -18,7 +18,7 @@ const validate = values => {
 
 @reduxForm({
     form: 'foodDetail',
-    fields: fields,
+    fields: [...nvFields, '_id', 'name' ],
     validate
   },
   undefined,
@@ -27,20 +27,20 @@ export default class FoodDetailForm extends React.Component {
 
   render() {
 
-    const { fields, handleSubmit, submitting, errors, pristine, invalid } = this.props;
+    const { fields: { name, nutritionValues }, handleSubmit, submitting, errors, pristine, invalid } = this.props;
     
-    const inputs = Object.keys(fields).map((type, i) => {
+    const inputs = Object.keys(nutritionValues).map((type, i) => {
       if(type === 'name' || type === '_id') return;
-      return <PureInput type="number" min="0" step="0.01" label={D_NUTRITION_VALUES[type].label} addonAfter={D_NUTRITION_VALUES[type].unit} field={fields[type]} key={i} />
+      return <PureInput type="number" min="0" step="0.01" label={D_NVS[type].label} addonAfter={D_NVS[type].unit} field={nutritionValues[type]} key={i} />
     }); 
 
-    const errorMessages = Object.keys(errors).map((error) => <li>{errors[error]}</li>)
+    const errorMessages = Object.keys(errors).map((error, i) => <li key={i}>{errors[error]}</li>)
  
     return (
       <div>
         <Alert bsStyle="warning">Hodnoty se vyplňují v přepočtu na <strong>100g</strong> potraviny</Alert>
         <form onSubmit={handleSubmit}>
-          <PureInput label="Název" field={fields.name} />
+          <PureInput label="Název" field={name} />
           {inputs}
 
           { errorMessages.length > 0 && 

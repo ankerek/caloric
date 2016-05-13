@@ -19,101 +19,92 @@ import { isDateStringValid } from './utils/utils'
 import Html from './Html'
 
 
-  const app = express();
 
-  console.log(config.mongodb);
+const app = express();
 
-  mongoose.connect(config.mongodb);
-  mongoose.connection.on('error', function() {
-    console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
-  });
+console.log(config.mongodb);
 
-
-
-  // uncomment after placing your favicon in /public
-  //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-  app.use(logger('dev'));
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cookieParser());
+mongoose.connect(config.mongodb);
+mongoose.connection.on('error', function() {
+  console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
+});
 
 
 
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-  app.use(express.static(path.join(__dirname, '..', 'static')));
 
 
 
-  app.use('/api', apiRoutes);
+app.use(express.static(path.join(__dirname, '..', 'static')));
 
 
-  app.use(function(req, res) {
 
-    const token = req.cookies.token;
+app.use('/api', apiRoutes);
 
-    const store = configureStore( { auth: { token } } );
 
-    match({ routes: routes(store), location: req.url }, ( error, redirectLocation, renderProps ) => {
+app.use(function(req, res) {
 
-      if ( redirectLocation ) {
-        return res.redirect( 301, redirectLocation.pathname + redirectLocation.search );
-      } else if ( error ) {
-        console.log( 'error: ', error)
-        return res.status(500).send( error.message );
-      } else if ( renderProps == null ) {
-        res.status(404).json( 'Stránka nenalezena' );
-        //next();
-      } else {
+  const token = req.cookies.token;
 
-        getReduxPromise().then(() => {
-          const component = (
-            <Provider store={store}>
-              <RouterContext {...renderProps} />
-            </Provider>
-          );
-       
-          res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html component={component} store={store}/>));
-        })
-        .catch(err => res.status(404).json( 'Stránka nenalezena' ));
+  const store = configureStore( { auth: { token } } );
 
-        function getReduxPromise () {
-          const { query, params } = renderProps;
+  match({ routes: routes(store), location: req.url }, ( error, redirectLocation, renderProps ) => {
 
-          if(params && params.date) if(!isDateStringValid(params.date)) res.status(404).json( 'Not found' );
+    if ( redirectLocation ) {
+      return res.redirect( 301, redirectLocation.pathname + redirectLocation.search );
+    } else if ( error ) {
+      return next(error.message);
+    } else if ( renderProps == null ) {
+      res.status(404).json( 'Stránka nenalezena' );
+      //next();
+    } else {
 
-          const baseUrl = req.protocol + '://' + req.get('host');
+      getReduxPromise().then(() => {
+        const component = (
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        );
+     
+        res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html component={component} store={store}/>));
+      })
+      .catch(err => res.status(404).json( 'Stránka nenalezena' ));
 
-          //let comp = renderProps.components[renderProps.components.length - 1].WrappedComponent;
-          const comps = renderProps.components.map(comp => comp && comp.WrappedComponent ? comp.WrappedComponent : null);
+      function getReduxPromise () {
+        const { query, params } = renderProps;
 
-          const promises = comps.map(comp => comp && comp.fetchData ? comp.fetchData({ query, params, store, baseUrl, comp }) : Promise.resolve() );
-          
+        if(params && params.date) if(!isDateStringValid(params.date)) res.status(404).json( 'Not found' );
 
-          //let promise = comp && comp.fetchData ? comp.fetchData({ query, params, store, baseUrl }) : Promise.resolve();
-          //return promise;
-          return Promise.all(promises);
-        }
+        const baseUrl = req.protocol + '://' + req.get('host');
 
+        const comps = renderProps.components.map(comp => comp && comp.WrappedComponent ? comp.WrappedComponent : null);
+
+        const promises = comps.map(comp => comp && comp.fetchData ? comp.fetchData({ query, params, store, baseUrl, comp }) : Promise.resolve() );
+        
+        return Promise.all(promises);
       }
-    });
 
+    }
   });
 
-
-  app.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
-    console.log(err);
-    return res.status(err.status || 500).json('Něco se pokazilo');
-  });
-
-  app.listen(config.port, function() {
-    console.log(`Server started: http://${config.host}:${config.port}/`);
-  });
-
-  if(app.get('env') === 'development') {
-    require('../webpack/dev-server');
-  }
-  //return app.listen(3000, () => callback(app));
-//}
+});
 
 
-//module.exports = app;
+app.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
+  console.log(err);
+  return res.status(err.status || 500).json('Něco se pokazilo');
+});
+
+app.listen(config.port, function() {
+  console.log(`Server started: http://${config.host}:${config.port}/`);
+});
+
+if(app.get('env') === 'development') {
+  require('../webpack/dev-server');
+}

@@ -129,7 +129,6 @@ class FindFoodAutosuggest extends React.Component {
 	}
 	
   render() {
-  	console.log('FindFoodInput');
   	const { value, suggestions } = this.state;
   	const inputProps = {
       className: 'form-control',

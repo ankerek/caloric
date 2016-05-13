@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { D_NUTRITION_VALUES } from '../dictionary'
+import { D_NVS } from '../dictionary'
 
 export function calculateAge(birthday) {
 	let birthday2;
@@ -44,7 +44,7 @@ export function calculateNutritionValue({type, preferences}) {
 }
 
 export function getRecommendation({type, age, gender}) {
-	const recs = D_NUTRITION_VALUES[type].recommendations[gender];
+	const recs = D_NVS[type].recommendations[gender];
 	let k = -1;
 	for(const key in recs) {
 	  if(age < key) break;

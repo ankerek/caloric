@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import moment from 'moment'
 import { timestampFromObjectId } from '../../utils/utils'
 import {makeWidthFlexible, XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries, VerticalBarSeries, Crosshair} from 'react-vis'
-import { D_NUTRITION_VALUES } from '../../dictionary'
+import { D_NVS } from '../../dictionary'
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
@@ -94,7 +94,7 @@ export default class NVGraph extends React.Component {
             data={goals}
             color="orange" />
           <YAxis
-            title={D_NUTRITION_VALUES[type].unit}
+            title={D_NVS[type].unit}
             labelFormat={v => v}
            />
           <Crosshair 

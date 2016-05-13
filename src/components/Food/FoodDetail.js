@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { fetchFoodDetail } from '../../actions/food'
 import FoodDetailForm from './FoodDetailForm'
 import { Col, Table } from 'react-bootstrap'
-import { D_NUTRITION_VALUES } from '../../dictionary'
+import { D_NVS } from '../../dictionary'
 
 @connect(
   state => ({
@@ -48,7 +48,7 @@ export default class FoodDetail extends React.Component {
     const error = this.state.error;
     const title = food.get('name');
   	
-    const nutritionValues = Object.keys(D_NUTRITION_VALUES).map((type, i) => <tr key={i}><td>{D_NUTRITION_VALUES[type].label}</td><td>{food.has(type) ? Math.round(food.get(type) / 100 * this.state.weight * 100 )/100 : 0}{D_NUTRITION_VALUES[type].unit}</td></tr>);
+    const nutritionValues = Object.keys(D_NVS).map((type, i) => <tr key={i}><td>{D_NVS[type].label}</td><td>{food.hasIn(['nutritionValues', type]) ? Math.round(food.getIn(['nutritionValues', type]) / 100 * this.state.weight * 100 )/100 : 0}{D_NVS[type].unit}</td></tr>);
 
     return (
       <div>

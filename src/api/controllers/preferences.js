@@ -5,14 +5,14 @@ import { hexSeconds, timestampFromObjectId } from '../../utils/utils'
 export function getByDate(req, res, next) {
   if(!req.query.from || !req.query.to) return next();
 
-  Preferences.find({_id: {$gt: req.query.from, $lt: req.query.to}, user_id: req.user._id }).sort({_id: 1}).exec((err, preferences) => {
+  Preferences.find({_id: {$gt: req.query.from, $lt: req.query.to}, user_id: req.user._id }).sort({_id: 1}).lean().exec((err, preferences) => {
     if (err) return next(err);  
 
     let prefs = [...preferences];
 
 
     if( (prefs.length && req.query.from !== timestampFromObjectId(prefs[0]._id)) || !prefs.length ) {
-      Preferences.findOne({_id: {$lt: req.query.from}, user_id: req.user._id }).sort({_id: -1}).exec((err, preferences) => {
+      Preferences.findOne({_id: {$lt: req.query.from}, user_id: req.user._id }).sort({_id: -1}).lean().exec((err, preferences) => {
         if (err) return next(err);
         
         if(preferences) prefs.unshift(preferences);
@@ -22,34 +22,12 @@ export function getByDate(req, res, next) {
     } else res.json(prefs);
   });
 };
-
-export function getLatest(req, res, next) {
-  if(!req.query.from || !req.query.to) return next();
-
-  Preferences.find({_id: {$gt: req.query.from, $lt: req.query.to}, user_id: req.user._id }).sort({_id: 1}).exec((err, preferences) => {
-    if (err) return next(err);  
-
-    let prefs = [...preferences];
-
-
-    if( (prefs.length && req.query.from !== timestampFromObjectId(prefs[0]._id)) || !prefs.length ) {
-      Preferences.findOne({_id: {$lt: req.query.from}, user_id: req.user._id }).sort({_id: -1}).exec((err, preferences) => {
-        if (err) return next(err);
-        
-        if(preferences) prefs.unshift(preferences);
-
-        res.json(prefs);
-      });
-    } else res.json(prefs);
-  });
-};
-
 
 export function getLatestByDate(req, res, next) {
 
   //var query = Preferences.find({_id: {$lte: req.params.to} }).sort({_id:-1}).limit(1);
 
-  Preferences.findOne({_id: {$lt: req.params.id}, user_id: req.user._id }).sort({_id: -1}).exec(function(err, preferences) {
+  Preferences.findOne({_id: {$lt: req.params.id}, user_id: req.user._id }).sort({_id: -1}).lean().exec(function(err, preferences) {
     if (err) return next(err);
 
     res.json(preferences ? preferences : {});

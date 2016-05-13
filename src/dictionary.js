@@ -6,7 +6,7 @@
 //   ['fiber', ['vlaknina', 1]]
 // ]);
 
-export const D_NUTRITION_VALUES = {
+export const D_NVS = {
 	kcal: {
 		label: 'Kilokalorie',
 		unit: 'kcal',
@@ -283,8 +283,9 @@ export const D_NUTRITION_VALUES = {
 			female: {	1: 1.5, 4: 1.9, 9: 1.3, 51: 2, 70: 1.8 }
 		}
 	},
-
 };
+
+export const D_NVS_KEYS = Object.keys(D_NVS);
 
 export const D_MEAL_TYPES = {
 	breakfast: 'Snídaně',

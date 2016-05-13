@@ -44,11 +44,12 @@ const food = (state = initialState, action) => {
     case ActionTypes.FETCH_FOOD_DETAIL_SUCCESS:
     case ActionTypes.UPDATE_FOOD_SUCCESS:
       let fields = {...action.result};
+      let nutritionValues = fields.nutritionValues
       //if value is null -> problems with updating in redux-forms
-      for(const property in fields) { 
-        if (fields.hasOwnProperty(property)) {
-          if(fields[property] === null) fields[property] = '';
-          else if(property !== 'name' && property !== '_id' && property !== '_name') fields[property] = Math.round(fields[property] / 10000 * 100) / 100;
+      for(const property in nutritionValues) { 
+        if (nutritionValues.hasOwnProperty(property)) {
+          if(nutritionValues[property] === null) nutritionValues[property] = '';
+          else nutritionValues[property] = Math.round(nutritionValues[property] / 10000 * 100) / 100;
         }
       }
 

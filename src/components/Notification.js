@@ -15,7 +15,6 @@ export default class Notification extends React.Component {
 
   render() {
     const { notification, closeNotification } = this.props;
-    console.log('notification');
 
     setTimeout(() => this.props.closeNotification(), 5000);
 

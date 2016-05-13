@@ -8,7 +8,7 @@ import PureInput from './../PureInput'
 
 import { calculateBmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
 
-import { D_NUTRITION_VALUES } from '../../dictionary'
+import { D_NVS } from '../../dictionary'
 
 
 const validate = values => {
@@ -33,9 +33,12 @@ const NotSaved = () => {
 
 const Calculated = ({preferences}) => {
   return (
-    <div className="bg-info">
-      Bazální metabolismus: {calculateBmr(preferences)} kcal<br />
-      TEE: {calculateTee(preferences)} kcal
+    <div>
+      <h3>Doporučené hodnoty na den</h3>
+      <div className="bg-info">
+        Bazální metabolismus: {calculateBmr(preferences)} kcal<br />
+        TEE: {calculateTee(preferences)} kcal
+      </div>
     </div>
   )
 }
@@ -88,14 +91,14 @@ export default class PreferencesForm extends React.Component {
 
     const nutritionValuesArr = nutritionValues.map(nutrient => nutrient.type.value);
 
-    // const nutritionValuesToChoose = Object.keys(D_NUTRITION_VALUES)
+    // const nutritionValuesToChoose = Object.keys(D_NVS)
     //   .filter((nutrient) => nutritionValuesArr.indexOf(nutrient) === -1 )
-    //   .map((type, i) => (<option value={type} key={i}>{D_NUTRITION_VALUES[type].label}</option>));
+    //   .map((type, i) => (<option value={type} key={i}>{D_NVS[type].label}</option>));
 
-    const nutritionValuesToChoose = Object.keys(D_NUTRITION_VALUES)
+    const nutritionValuesToChoose = Object.keys(D_NVS)
       .filter((nutrient) => nutritionValuesArr.indexOf(nutrient) === -1 )
       .map((type, i) => {
-        return {value: type, label: D_NUTRITION_VALUES[type].label}
+        return {value: type, label: D_NVS[type].label}
       });
 
     return (
@@ -172,7 +175,6 @@ export default class PreferencesForm extends React.Component {
             
           </Col>
           <Col md={6}>
-            <h3>Doporučené hodnoty na den</h3>
             <Calculated preferences={this.preferences} />
           </Col>
         </Row>

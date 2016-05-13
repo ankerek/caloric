@@ -8,9 +8,6 @@ import * as UserController from './controllers/user'
 import * as MealController from './controllers/meal'
 import * as PreferencesController from './controllers/preferences'
 
-import { D_NUTRITION_VALUES } from '../dictionary'
-import { countNutrient, hexSeconds, timestampFromObjectId } from '../utils/utils'
-
 
 
 const router = express.Router();

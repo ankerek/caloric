@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 import { calculateNutritionValue } from '../../utils/preferences'
-import { D_NUTRITION_VALUES } from '../../dictionary'
+import { D_NVS } from '../../dictionary'
 
 const NutritionValues = ({nutritionValues, preferences}) => {
   return (
@@ -13,10 +13,10 @@ const NutritionValues = ({nutritionValues, preferences}) => {
         <Row key={index}>
           <Col xs={6}>
             <div className="form-group">  
-              <label>{D_NUTRITION_VALUES[nutritionValue.type.value].label}</label>
+              <label>{D_NVS[nutritionValue.type.value].label}</label>
               <div className="input-group">
                 <input type="number" className="form-control" disabled={nutritionValue.auto.value} {...nutritionValue.goal} />
-                <div className="input-group-addon">{D_NUTRITION_VALUES[nutritionValue.type.value].unit}</div>
+                <div className="input-group-addon">{D_NVS[nutritionValue.type.value].unit}</div>
               </div>
             </div>
           </Col>
@@ -29,7 +29,7 @@ const NutritionValues = ({nutritionValues, preferences}) => {
               nutritionValue.goal.onChange(calculateNutritionValue({type: nutritionValue.type.value, preferences}));
             }}>Automaticky doplňovat</Button>{' '}
             {
-              D_NUTRITION_VALUES[nutritionValue.type.value].weight !== 0 ? 
+              D_NVS[nutritionValue.type.value].weight !== 0 ? 
                 <Button bsStyle="danger" style={{marginTop: '24px'}} onClick={() => {
                   nutritionValues.removeField(index)
                 }}>Odstranit</Button>

@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {D_NUTRITION_VALUES} from '../dictionary'
+import {D_NVS} from '../dictionary'
 import {ProgressBar} from 'react-bootstrap'
 
 export default class Info extends React.Component {
@@ -17,7 +17,7 @@ export default class Info extends React.Component {
   render() {
 
     const { item } = this.props;
-    const baseItem = D_NUTRITION_VALUES[item.get('type')];
+    const baseItem = D_NVS[item.get('type')];
 
     const value = Math.round(item.get('value') / 1000000);
     const percents = Math.round((value/item.get('goal'))*100);

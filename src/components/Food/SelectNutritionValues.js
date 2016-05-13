@@ -2,10 +2,10 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Row, Col, Button, Panel, Table, Alert } from 'react-bootstrap'
 import Select from 'react-select'
-import { D_NUTRITION_VALUES } from '../../dictionary'
+import { D_NVS } from '../../dictionary'
 
-const options = Object.keys(D_NUTRITION_VALUES).map((type, i) => {
-  return {value: type, label: D_NUTRITION_VALUES[type].label}
+const options = Object.keys(D_NVS).map((type, i) => {
+  return {value: type, label: D_NVS[type].label}
 });
 
 export default class SelectNutritionValues extends React.Component {
