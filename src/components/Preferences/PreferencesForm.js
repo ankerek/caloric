@@ -2,11 +2,12 @@ import React from 'react'
 import { reduxForm } from 'redux-form'
 import moment from 'moment'
 import { Row, Col, Button, Panel, Table, Alert } from 'react-bootstrap'
+import UserInfo from './UserInfo'
 import NutritionValues from './NutritionValues'
 import SelectNutritionValue from './SelectNutritionValue'
 import PureInput from './../PureInput'
 
-import { calculateBmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
+import { calculateRmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
 
 import { D_NVS } from '../../dictionary'
 
@@ -32,12 +33,15 @@ const NotSaved = () => {
 };
 
 const Calculated = ({preferences}) => {
+  const tee = calculateTee(preferences);
   return (
     <div>
-      <h3>Doporučené hodnoty na den</h3>
-      <div className="bg-info">
-        Bazální metabolismus: {calculateBmr(preferences)} kcal<br />
-        TEE: {calculateTee(preferences)} kcal
+      <h3>Spočtené údaje</h3>
+      <div className="alert bg-info">
+        Klidová míra metabolismu (RMR): <strong>{calculateRmr(preferences)}</strong> kcal/den<br />
+        Celkový energetický výdeh (TEE) a doporučený příjem pro udržení váhy: <strong>{tee}</strong> kcal/den<br />
+        Pro zhubnutí 0,45kg za týden je doporučeno: <strong>{tee - 500}</strong> kcal/den<br />
+        Pro nabrání 0,45kg za týden je doporučeno: <strong>{tee + 500}</strong> kcal/den<br />
       </div>
     </div>
   )
@@ -73,27 +77,21 @@ export default class PreferencesForm extends React.Component {
   render() {
 
     const {
-      fields: { gender, birthday, weight, height, activityFactor, nutritionValues },
-      //pristine,
+      fields,
       dirty,
       handleSubmit,
-      //resetForm,
       submitting,
     } = this.props;
 
     this.preferences = {
-      gender: gender.value, 
-      birthday: birthday.value, 
-      weight: weight.value, 
-      height: height.value, 
-      activityFactor: activityFactor.value,
+      gender: fields.gender.value, 
+      birthday: fields.birthday.value, 
+      weight: fields.weight.value, 
+      height: fields.height.value, 
+      activityFactor: fields.activityFactor.value,
     };
 
-    const nutritionValuesArr = nutritionValues.map(nutrient => nutrient.type.value);
-
-    // const nutritionValuesToChoose = Object.keys(D_NVS)
-    //   .filter((nutrient) => nutritionValuesArr.indexOf(nutrient) === -1 )
-    //   .map((type, i) => (<option value={type} key={i}>{D_NVS[type].label}</option>));
+    const nutritionValuesArr = fields.nutritionValues.map(nutrient => nutrient.type.value);
 
     const nutritionValuesToChoose = Object.keys(D_NVS)
       .filter((nutrient) => nutritionValuesArr.indexOf(nutrient) === -1 )
@@ -105,80 +103,13 @@ export default class PreferencesForm extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row>
           <Col md={6}>
-            <div className="form-group">
-              <label>Pohlaví</label>
-              <div>
-                <label className="radio-inline">
-                  <input type="radio" {...gender} value="male" checked={(gender.value ? gender.value : gender.initialValue) === 'male'}/> Muž
-                </label>
-                <label className="radio-inline">
-                  <input type="radio" {...gender} value="female" checked={(gender.value ? gender.value : gender.initialValue) === 'female'}/> Žena
-                </label>
-              </div>
-            </div>
-            <PureInput type="text" label="Datum narození" field={birthday} />
-            <PureInput type="number" label="Váha" addonAfter="kg" field={weight} />
-            <PureInput type="number" label="Výška" addonAfter="cm" field={height} />
-            <div className={'form-group ' + (activityFactor.error && activityFactor.touched && 'has-error')}>
-              <label>Úroveň fyzické aktivity</label>
-              <select className="form-control"
-                {...activityFactor}
-                value={activityFactor.value || ''}>
-                <option></option>
-                <option value="1.2">Sedavá</option>
-                <option value="1.375">Mírná</option>
-                <option value="1.55">Střední</option>
-                <option value="1.7">Těžká</option>
-                <option value="1.9">Extrémní</option>
-              </select>
-              {activityFactor.error && activityFactor.touched && <span className="help-block">{activityFactor.error}</span>}
-            </div>
-            <Panel collapsible header="Zobrazit informace o fyzických aktivitách">
-              <Table responsive>
-                <thead>
-                  <tr>
-                    <th>Název</th>
-                    <th>Popis</th>
-                    <th>Koeficient</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Sedavá</td>
-                    <td>Skoro žádné pravidelné cvičení.</td>
-                    <td>1,2</td>
-                  </tr>
-                  <tr>
-                    <td>Mírná</td>
-                    <td>Intenzivní cvičení po dobu 20 minut jeden až tři dny týdně (běhání, jízda na kole, basketbal, plavání apod.) nebo zaměstnání při kterém se často chodí po dlouhou dobu.</td>
-                    <td>1,375</td>
-                  </tr>
-                  <tr>
-                    <td>Střední</td>
-                    <td>Intenzivní cvičení 30 až 60 minut tři až čtyři dny týdně (běhání, jízda na kole, basketbal, plavání apod.).</td>
-                    <td>1,55</td>
-                  </tr>
-                  <tr>
-                    <td>Těžká</td>
-                    <td>Intenzivní cvičení po dobu 60 minut a více pět až sedm dní v týdnu nebo namáhavé zaměstnání (práce na stavbě, farmaření apod.).</td>
-                    <td>1,7</td>
-                  </tr>
-                  <tr>
-                    <td>Extrémní</td>
-                    <td>Sportovci s několika tréninky denně nebo velmi náročné zaměstnání (práce v dolech, dlouhé hodiny u montážní linky apod.).</td>
-                    <td>1,9</td>
-                  </tr>
-                </tbody>                
-              </Table>
-            </Panel>
-            
-            
+            <UserInfo fields={fields} />
           </Col>
           <Col md={6}>
             <Calculated preferences={this.preferences} />
           </Col>
         </Row>
-        <NutritionValues nutritionValues={nutritionValues} preferences={this.preferences} />
+        <NutritionValues nutritionValues={fields.nutritionValues} preferences={this.preferences} />
         <SelectNutritionValue options={nutritionValuesToChoose} addNutritionValue={this.addNutritionValue} />
         {dirty && <NotSaved />}
         <Button type="submit" bsStyle="success" bsSize="large" disabled={submitting}><i className={'fa ' + (submitting ? 'fa-cog fa-spin' : 'fa-cloud')}/> Uložit</Button>

@@ -29,11 +29,9 @@ const NutritionValues = ({nutritionValues, preferences}) => {
               nutritionValue.goal.onChange(calculateNutritionValue({type: nutritionValue.type.value, preferences}));
             }}>Automaticky doplňovat</Button>{' '}
             {
-              D_NVS[nutritionValue.type.value].weight !== 0 ? 
                 <Button bsStyle="danger" style={{marginTop: '24px'}} onClick={() => {
                   nutritionValues.removeField(index)
                 }}>Odstranit</Button>
-               : null
             }
             
           </Col>

@@ -26,7 +26,7 @@ export function fetchUser({baseUrl}) {
 
 export const signup = (data) => {
 
-  const { username, email, password } = data;
+  //const { username, email, password } = data;
 
   return {
     types: [ActionTypes.SIGNUP_REQUEST, ActionTypes.SIGNUP_SUCCESS, ActionTypes.SIGNUP_FAILURE],
@@ -36,7 +36,7 @@ export const signup = (data) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, email, password })
+      body: JSON.stringify(data)
     })
   }
   

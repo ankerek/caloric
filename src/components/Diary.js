@@ -52,7 +52,7 @@ export default class Diary extends React.Component {
   
   render() {
     
-    const {meals, nutritionValues, loadingMeals} = this.props;
+    const { meals, nutritionValues, loadingMeals, params } = this.props;
 
     const timestamp = getTimestampFromParams(this.props.params);
     const title = "Jídelníček";
@@ -69,7 +69,7 @@ export default class Diary extends React.Component {
           <Meals meals={meals}/>
         </Col>
         <Col md={4}>
-          <Information nutritionValues={nutritionValues}  />
+          <Information nutritionValues={nutritionValues} params={params}  />
         </Col>
       </div>
     )

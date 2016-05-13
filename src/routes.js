@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, IndexRoute, createRoutes } from 'react-router'
 import cookie from 'react-cookie'
+import { getTimestampFromParams } from './utils/utils'
 import { logout } from './actions/auth'
 import Diary from './components/Diary'
 import Main from './components/Main'
@@ -21,7 +22,7 @@ const routes = (
       <Route path="/jidelnicek/:date" component={Diary} />
       <Route path="/statistika" component={Statistics} />
       <Route path="/nastaveni" component={Settings}>
-        <Route path="predvolby" component={Preferences} />
+        <Route path="predvolby/:date" component={Preferences} />
       </Route>
     </Route>
     <Route path="/potraviny" component={FoodList} />
@@ -49,7 +50,6 @@ function walk(routes, cb) {
 export default (store) => {
 
   const requireAuth = (nextState, replace) => {
-
     const {auth} = store.getState();
     const token = auth.get('token');
 
@@ -66,16 +66,21 @@ export default (store) => {
     if (auth && auth.get('token')) replace('/');
   };
 
-
-  const assignOnEnter = (route, onEnter) => {
+  const checkDate = (nextState, replace) => {
+    requireAuth(nextState, replace);
     
-    if(route.indexRoute) route.indexRoute.onEnter = onEnter;
+    if(getTimestampFromParams(nextState.params) > new Date().setUTCHours(0,0,0,0)) replace('/nastaveni/predvolby');
+  };
 
-    if(route.childRoutes) route.childRoutes.forEach(childRoute => assignOnEnter(childRoute, onEnter));
-    else route.onEnter = onEnter;
+  // const assignOnEnter = (route, onEnter) => {
     
-    return route;
-  }
+  //   if(route.indexRoute) route.indexRoute.onEnter = onEnter;
+
+  //   if(route.childRoutes) route.childRoutes.forEach(childRoute => assignOnEnter(childRoute, onEnter));
+  //   else route.onEnter = onEnter;
+    
+  //   return route;
+  // }
 
   // return walk(createRoutes(routes), route => {
   //   if(route.requireAuth) assignOnEnter(route, requireAuth);
@@ -88,6 +93,7 @@ export default (store) => {
       <Route path="/statistika" component={Statistics} onEnter={requireAuth} />
       <Route path="/nastaveni" component={Settings} onEnter={requireAuth}>
         <Route path="predvolby" component={Preferences} onEnter={requireAuth} />
+        <Route path="predvolby/:date" component={Preferences} onEnter={checkDate} />
       </Route>
       <Route path="/potraviny" component={FoodList} />
       <Route path="/pridat-potravinu" component={FoodDetailEdit} />
@@ -98,55 +104,3 @@ export default (store) => {
     </Route>
   )
 };
-
-
-/*
-export default (store) => { 
-
-	const requireAuth = (nextState, replace, cb) => {
-
-    const {auth} = store.getState();
-    const token = auth.get('token');
-
-    console.log('App');
-
-    if ( ( process.env.BROWSER && cookie.load('token') !== token ) || ( !auth || !token ) ) {
-      store.dispatch(logout);
-      replace('/prihlaseni');
-    }
-
-    cb();
-  };
-
-  const noAuth = (nextState, replace, cb) => {
-
-    const {auth} = store.getState();
-
-    if (auth && auth.get('token')) replace('/');
-
-    cb();
-  };
-
-	return (
-		<Route path="/" component={App} >
-
-	  	<Route onEnter={requireAuth}>
-	  		<IndexRoute component={Diary} />
-	  		<Route path="/den/:date" component={Diary} />
-        <Route path="/nastaveni" component={Settings}>
-		  		<Route path="predvolby" component={Preferences} />
-		  	</Route>
-      </Route>
-
-      <Route onEnter={noAuth}>
-        <Route path="/registrace" component={SignUpForm} />
-		  	<Route path="/prihlaseni" component={SignInForm} />
-      </Route>
-	  	
-	  	
-	  </Route>
-	)
-
-}
-
-*/

@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { fetchPreferences, updatePreferences } from '../../actions/preferences'
 import { timestampFromObjectId } from '../../utils/utils'
 import { calculateBmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
-
+import { getTimestampFromParams } from '../../utils/utils'
 import PreferencesForm from './PreferencesForm'
+
 
 import moment from 'moment'
 
@@ -26,20 +27,28 @@ export default class Preferences extends React.Component {
     };
   }
 
-  static fetchData({ store, baseUrl }) {
-    const date = new Date();
-    date.setUTCHours(0,0,0,0);
+  static fetchData({ store, params, baseUrl }) {
+    // const date = new Date();
+    // date.setUTCHours(0,0,0,0);
 
-    return store.dispatch(fetchPreferences({baseUrl, timestamp: date.getTime()}))
+    const timestamp = getTimestampFromParams(params);
+
+    return store.dispatch(fetchPreferences({ baseUrl, timestamp }))
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if(this.props.location && this.props.location.action === 'PUSH') {
-      this.constructor.fetchData({ store: this.props, baseUrl: '' });
+      this.constructor.fetchData({ store: this.props, params: this.props.params, baseUrl: '' });
     }
   }
 
-  handleSubmit(data) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      this.constructor.fetchData({ store: this.props, params: nextProps.params, baseUrl: '' });
+    }
+  }
+
+  handleSubmit = (data) => {
 
     let preferences = {...data};
 
@@ -52,8 +61,8 @@ export default class Preferences extends React.Component {
 
     
 
-    return this.props.dispatch(updatePreferences(preferences));
-  }
+    return this.props.dispatch(updatePreferences({preferences, params: this.props.params}));
+  };
 
   render() {
 
@@ -64,9 +73,9 @@ export default class Preferences extends React.Component {
       <div>
         <h1>Předvolby</h1>
         <Helmet title="Předvolby"/>
-        {preferences && preferences._id && <p>Předvolby naposled vyplněny dne {moment(timestampFromObjectId(preferences._id)).format('LL')}</p>}
+        {preferences && preferences._id && <p>Zobrazeny předvolby ze dne {moment(timestampFromObjectId(preferences._id)).format('LL')}</p>}
         
-        <PreferencesForm initialValues={preferences} onSubmit={this.handleSubmit.bind(this)} />
+        <PreferencesForm initialValues={preferences} onSubmit={this.handleSubmit} />
           
 
       </div>

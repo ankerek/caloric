@@ -9,12 +9,12 @@ export function calculateAge(birthday) {
   return birthday ? moment().diff(birthday2, 'years') : 0;
 }
 
-export function calculateBmr({gender, birthday, weight, height}) {
+export function calculateRmr({gender, birthday, weight, height}) {
 	return Math.floor(10*weight + 6.25*height - 5*calculateAge(birthday) + (gender === 'male' ? 5 : -161));
 }
 
 export function calculateTee(preferences) {
-	return Math.floor(calculateBmr(preferences) * preferences.activityFactor);
+	return Math.floor(calculateRmr(preferences) * preferences.activityFactor);
 }
 
 export function calculateNutritionValue({type, preferences}) {

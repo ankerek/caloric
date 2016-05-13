@@ -1,4 +1,4 @@
-import { objectIdFromTimestamp, timestampFromObjectId } from '../utils/utils'
+import { objectIdFromTimestamp, timestampFromObjectId, getTimestampFromParams } from '../utils/utils'
 import 'isomorphic-fetch'
 import * as ActionTypes from '.'
 if ( process.env.BROWSER ) var humane = require('../utils/utils').humane;
@@ -6,7 +6,6 @@ if ( process.env.BROWSER ) var humane = require('../utils/utils').humane;
 
 export function fetchPreferences({baseUrl, timestamp, meals}) {
   const timestamp2 = timestamp + 24*60*60*1000;
-
   const objectId = objectIdFromTimestamp(timestamp2);
 
   return (dispatch, getState) => {
@@ -26,19 +25,24 @@ export function fetchPreferences({baseUrl, timestamp, meals}) {
 }
 
 
-export const updatePreferences = (data) => {
+export const updatePreferences = ({preferences, params}) => {
 
-  let today = new Date();
-  today.setUTCHours(0,0,0,0);
+  let data = {...preferences};
 
-  if(!data._id || today.getTime() !== timestampFromObjectId(data._id)) delete data._id; //jestlize to neni dnesni datum predvoleb (starsi), tak se smaze attribut _id a vytvori se novy dokument
+  const timestamp = getTimestampFromParams(params);
+
+  if(!data._id || timestamp !== timestampFromObjectId(data._id)) {
+    delete data._id; //jestlize to neni dnesni datum predvoleb (starsi), tak se smaze atribut _id a vytvori se novy dokument
+    data.timestamp = timestamp;
+  }
+
 
   return (dispatch, getState) => {
     const token = getState().auth.get('token');
 
     return dispatch({
       types: [ActionTypes.UPDATE_PREFERENCES_REQUEST, ActionTypes.UPDATE_PREFERENCES_SUCCESS, ActionTypes.UPDATE_PREFERENCES_FAILURE],
-      promise: fetch('/api/preferences/'+(data._id ? data._id : ''), {
+      promise: fetch('/api/preferences/' + (data._id ? data._id : ''), {
         method: data._id ? 'PUT' : 'POST',
         headers: {
           'Authorization': 'Bearer ' + token,

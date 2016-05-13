@@ -36,7 +36,8 @@ export function getLatestByDate(req, res, next) {
 
 export function create(req, res, next) {
 
-  const timestamp = new Date().setUTCHours(0,0,0,0);
+  const timestamp = req.body.data.timestamp ? req.body.data.timestamp : new Date().setUTCHours(0,0,0,0);
+  //const timestamp = new Date().setUTCHours(0,0,0,0);
   const _id = mongoose.Types.ObjectId(hexSeconds(timestamp) + mongoose.Types.ObjectId().toString().substring(8));
 
   const preferences = new Preferences({...req.body.data, _id, user_id: req.user._id});
@@ -56,4 +57,6 @@ export function update(req, res, next) {
     if (err) return next(err);
     else res.json(preferences);
   });
+
+
 };

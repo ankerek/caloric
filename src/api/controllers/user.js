@@ -1,7 +1,10 @@
+import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import User from '../models/user'
+import Preferences from '../models/preferences'
 import { generateToken, extractToken, getCleanUser } from '../../utils/auth'
+import { hexSeconds } from '../../utils/utils'
 
 function isUserUnique(reqBody, cb) {
   const username = reqBody.username ? reqBody.username.trim() : '';
@@ -77,7 +80,18 @@ export function signup(req, res, next) {
       const cleanUser = getCleanUser(user);
       const token = generateToken(user);
 
-      res.json({ user: cleanUser, token });
+      const timestamp = new Date().setUTCHours(0,0,0,0);
+      const _id = mongoose.Types.ObjectId(hexSeconds(timestamp) + mongoose.Types.ObjectId().toString().substring(8));
+
+      const preferences = new Preferences({...body, _id, user_id: user._id});
+
+      preferences.save((err, preferences) => {
+        if (err) return next(err);
+
+        res.json({ user: cleanUser, token });
+      });
+
+      
     });
 
   });
