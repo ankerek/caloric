@@ -58,10 +58,9 @@ export function update(req, res, next) {
 
 
 
-  Food.findOneAndUpdate({ _id }, req.body.data, {/*upsert: true, */new: true, runValidators: true}, (err, food) => {
+  Food.findOneAndUpdate({ _id }, {...req.body.data, _name: removeDiacritics(req.body.data.name.toLowerCase()).split(' ') }, {/*upsert: true, */new: true, runValidators: true}, (err, food) => {
     if (err) return next(err);
     else {
-
 
       Meal.find({'items.item_id': mongoose.Types.ObjectId(_id)}).exec((err, meals) => {
         if (err) return next(err);
@@ -87,12 +86,6 @@ export function update(req, res, next) {
         
         res.json(food);
       });
-
-      // const nFood = food.toObject();
-      // for(const key in nFood) {
-      //   console.log(key)
-      // }
-
       
     }
   });
