@@ -17,25 +17,6 @@
     "start": "npm run prod"
   },
   "devDependencies": {
-    "css-loader": "^0.23.1",
-    "eslint": "^2.8.0",
-    "eslint-plugin-babel": "^3.0.0",
-    "eslint-plugin-react": "^5.0.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "node-sass": "3.4.2",
-    "react-addons-perf": "^15.0.1",
-    "react-hot-loader": "^3.0.0-beta.0",
-    "rimraf": "^2.4.3",
-    "sass-loader": "^3.2.0",
-    "strip-loader": "^0.1.2",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1",
-    "font-awesome": "^4.6.1",
-    "font-awesome-webpack": "0.0.4",
-    "less": "^2.7.1"
   },
   "dependencies": {
     "babel-core": "^6.3.15",
@@ -83,6 +64,25 @@
     "redux": "^3.3.1",
     "redux-form": "^5.0.1",
     "redux-logger": "^2.6.0",
-    "redux-thunk": "^2.0.1"
+    "redux-thunk": "^2.0.1",    
+    "css-loader": "^0.23.1",
+    "eslint": "^2.8.0",
+    "eslint-plugin-babel": "^3.0.0",
+    "eslint-plugin-react": "^5.0.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "node-sass": "3.4.2",
+    "react-addons-perf": "^15.0.1",
+    "react-hot-loader": "^3.0.0-beta.0",
+    "rimraf": "^2.4.3",
+    "sass-loader": "^3.2.0",
+    "strip-loader": "^0.1.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1",
+    "font-awesome": "^4.6.1",
+    "font-awesome-webpack": "0.0.4",
+    "less": "^2.7.1"
   }
 }
