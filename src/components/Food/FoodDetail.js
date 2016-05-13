@@ -14,8 +14,8 @@ import { D_NVS } from '../../dictionary'
 )
 export default class FoodDetail extends React.Component {
 
-  static fetchData({ store, params }) {
-    return store.dispatch(fetchFoodDetail({ id: params.id }));
+  static fetchData({ baseUrl, store, params }) {
+    return store.dispatch(fetchFoodDetail({ baseUrl, id: params.id }));
   }
 
   constructor(props) {
@@ -28,7 +28,7 @@ export default class FoodDetail extends React.Component {
   }
 
   componentWillMount() {
-    this.constructor.fetchData({ store: this.props, params: this.props.params });
+    this.constructor.fetchData({ store: this.props, params: this.props.params, baseUrl: '' });
   }
 
   changeWeight = (e) => {

@@ -28,12 +28,12 @@ export function changeFoodListFilters(filters) {
   }
 }
 
-export function fetchFoodDetail({ id }) {
+export function fetchFoodDetail({ baseUrl, id }) {
 
   return (dispatch) => {
     return dispatch({
       types: [ActionTypes.FETCH_FOOD_DETAIL_REQUEST, ActionTypes.FETCH_FOOD_DETAIL_SUCCESS, ActionTypes.FETCH_FOOD_DETAIL_FAILURE],
-      promise: fetch(config.baseUrl + '/api/food/' + id)
+      promise: fetch(baseUrl + '/api/food/' + id)
     });
   }
 }
