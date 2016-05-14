@@ -12,7 +12,6 @@ module.exports = {
     'webpack/hot/only-dev-server',
     'font-awesome-webpack!./src/theme/font-awesome.config.js',
     './src/main',
-    //'./src/stylesheets/main.scss'
   ],
   output: {
     path: path.join(__dirname, '..', 'dist'),
@@ -21,15 +20,12 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    //new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('development'),
         'BROWSER': JSON.stringify(true)
       }
     }),
-
-    
   ],
   module: {
     loaders: [
@@ -37,9 +33,6 @@ module.exports = {
         test: /\.jsx?/,
         loader: 'babel',
         include: path.join(__dirname, '..', 'src'),
-        // query: {
-        //   presets: ['react-hmre']
-        // }
       },
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.scss$/, loader: 'style!css!sass?includePaths[]=' + path.resolve(__dirname, '..', './node_modules/compass-mixins/lib')},

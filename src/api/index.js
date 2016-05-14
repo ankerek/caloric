@@ -14,11 +14,11 @@ const router = express.Router();
 
 //Food routes
 
-router.route('/update-food')
-  .get(FoodController.updateFoodNames)
+// router.route('/update-food')
+//   .get(FoodController.updateFoodNames)
 
-router.route('/set-food')
-  .get(FoodController.setRandomValues)
+// router.route('/set-food')
+//   .get(FoodController.setRandomValues)
 
 router.route('/food/:id')
   .get(FoodController.getById)

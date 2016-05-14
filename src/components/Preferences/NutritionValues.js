@@ -21,6 +21,17 @@ const NutritionValues = ({nutritionValues, preferences}) => {
             </div>
           </Col>
           <Col xs={6}>
+            <div className="btn-group">
+            <Button bsStyle="success" style={{marginTop: '24px'}} disabled={index === 0} onClick={() => {
+              nutritionValues.swapFields(index, index - 1)  // swap field with it's predecessor
+            }}><i className="fa fa-caret-up" />
+            </Button>
+            <Button bsStyle="success" style={{marginTop: '24px'}} disabled={index === nutritionValues.length - 1} onClick={() => {
+              nutritionValues.swapFields(index, index + 1)  // swap field with it's successor
+            }}><i className="fa fa-caret-down" />
+            </Button>
+            </div>
+            {' '}
             <Button bsStyle="warning" style={{marginTop: '24px'}} onClick={() => {
               nutritionValue.auto.onChange(false);
             }}>Upravit</Button>{' '}

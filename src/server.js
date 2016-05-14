@@ -58,7 +58,6 @@ app.use((req, res, next) => {
     }
   }
   return next();
-
 });
 
 app.use((req, res) => {
@@ -110,7 +109,7 @@ app.use((req, res) => {
 });
 
 
-app.use(function(err, req, res, next) { // eslint-disable-line no-unused-vars
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(err);
   return res.status(err.status || 500).json('Něco se pokazilo');
 });
@@ -119,6 +118,6 @@ app.listen(config.port, function() {
   console.log(`Server started: http://${config.host}:${config.port}/`);
 });
 
-if(app.get('env') === 'development') {
+if(config.env === 'development') {
   require('../webpack/dev-server');
 }

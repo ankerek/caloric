@@ -27,7 +27,7 @@ export function getLatestByDate(req, res, next) {
 
   //var query = Preferences.find({_id: {$lte: req.params.to} }).sort({_id:-1}).limit(1);
 
-  Preferences.findOne({_id: {$lt: req.params.id}, user_id: req.user._id }).sort({_id: -1}).lean().exec(function(err, preferences) {
+  Preferences.findOne({_id: {$lt: req.params.id}, user_id: req.user._id }).sort({_id: -1}).lean().exec((err, preferences) => {
     if (err) return next(err);
 
     res.json(preferences ? preferences : {});
