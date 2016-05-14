@@ -69,7 +69,8 @@ export default class FoodItem extends React.Component {
     this.props.dispatch(removeMealFood(data))
   };
 
-  finishEdit = () => {
+  finishEdit = (e) => {
+    e.preventDefault();
     const { item } = this.props;
 
     const newQty = this.state.qty;//parseInt(this.refs.qty.getValue());
@@ -123,7 +124,7 @@ export default class FoodItem extends React.Component {
   renderEdit() {
     const item = this.props.item;
     return (
-      <div onBlur={this.itemOnBlur}>
+      <form onBlur={this.itemOnBlur} onSubmit={this.finishEdit}>
         <Col md={3}>
           <InputGroup>
             <FormControl 
@@ -148,13 +149,13 @@ export default class FoodItem extends React.Component {
           </InputGroup>
         </Col>
         <Col md={6}>
-          <Button bsStyle="success" onClick={this.finishEdit}>Uložit</Button> {' '}
+          <Button bsStyle="success" type="submit">Uložit</Button> {' '}
           <Button bsStyle="danger" onClick={this.removeOnClick}>
             <i className="fa fa-trash-o" title="Odstranit"></i>
             <span className="sr-only">Odstranit</span>
           </Button>
         </Col>
-      </div>
+      </form>
     )
   }
 	
