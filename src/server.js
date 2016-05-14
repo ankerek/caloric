@@ -91,7 +91,7 @@ app.use((req, res) => {
       .catch(err => next(err));
 
       function getReduxPromise () {
-        const { query, params } = renderProps;
+        const { location: { pathname} , params } = renderProps;
 
         if(params && params.date) if(!isDateStringValid(params.date)) res.status(404).json( 'Not found' );
 
@@ -99,7 +99,7 @@ app.use((req, res) => {
 
         const comps = renderProps.components.map(comp => comp && comp.WrappedComponent ? comp.WrappedComponent : null);
 
-        const promises = comps.map(comp => comp && comp.fetchData ? comp.fetchData({ query, params, store, baseUrl, comp }) : Promise.resolve() );
+        const promises = comps.map(comp => comp && comp.fetchData ? comp.fetchData({ pathname, params, store, baseUrl, comp }) : Promise.resolve() );
         
         return Promise.all(promises);
       }

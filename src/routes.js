@@ -15,36 +15,36 @@ import FoodDetail from './components/Food/FoodDetail'
 import FoodDetailEdit from './components/Food/FoodDetailEdit'
 
 
-const routes = (
-  <Route path="/" component={Main}>
-    <Route requireAuth>
-      <IndexRoute component={Diary} />
-      <Route path="/jidelnicek/:date" component={Diary} />
-      <Route path="/statistika" component={Statistics} />
-      <Route path="/nastaveni" component={Settings}>
-        <Route path="predvolby/:date" component={Preferences} />
-      </Route>
-    </Route>
-    <Route path="/potraviny" component={FoodList} />
-    <Route path="/pridat-potravinu" component={FoodDetailEdit} />
-    <Route path="/potravina/:id" component={FoodDetail} />
-    <Route path="/potravina/:id/editace" component={FoodDetailEdit} />
-    <Route noAuth>
-      <Route path="/registrace" component={SignUpForm} />
-      <Route path="/prihlaseni" component={SignInForm} />
-    </Route>
-  </Route>
-);
+// const routes = (
+//   <Route path="/" component={Main}>
+//     <Route requireAuth>
+//       <IndexRoute component={Diary} />
+//       <Route path="/jidelnicek/:date" component={Diary} />
+//       <Route path="/statistika" component={Statistics} />
+//       <Route path="/nastaveni" component={Settings}>
+//         <Route path="predvolby/:date" component={Preferences} />
+//       </Route>
+//     </Route>
+//     <Route path="/potraviny" component={FoodList} />
+//     <Route path="/pridat-potravinu" component={FoodDetailEdit} />
+//     <Route path="/potravina/:id" component={FoodDetail} />
+//     <Route path="/potravina/:id/editace" component={FoodDetailEdit} />
+//     <Route noAuth>
+//       <Route path="/registrace" component={SignUpForm} />
+//       <Route path="/prihlaseni" component={SignInForm} />
+//     </Route>
+//   </Route>
+// );
 
-function walk(routes, cb) {
-  cb(routes);
+// function walk(routes, cb) {
+//   cb(routes);
 
-  if (routes.childRoutes) {
-    routes.childRoutes.forEach(route => walk(route, cb));
-  }
+//   if (routes.childRoutes) {
+//     routes.childRoutes.forEach(route => walk(route, cb));
+//   }
 
-  return routes;
-}
+//   return routes;
+// }
 
 
 export default (store) => {
@@ -96,9 +96,9 @@ export default (store) => {
         <Route path="predvolby/:date" component={Preferences} onEnter={checkDate} />
       </Route>
       <Route path="/potraviny" component={FoodList} />
-      <Route path="/pridat-potravinu" component={FoodDetailEdit} />
       <Route path="/potravina/:id" component={FoodDetail} />
       <Route path="/potravina/:id/editace" component={FoodDetailEdit} onEnter={requireAuth} />
+      <Route path="/pridat-potravinu" component={FoodDetailEdit} onEnter={requireAuth} />
       <Route path="/registrace" component={SignUpForm} onEnter={noAuth} />
       <Route path="/prihlaseni" component={SignInForm} onEnter={noAuth} />
     </Route>

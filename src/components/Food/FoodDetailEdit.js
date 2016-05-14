@@ -16,8 +16,8 @@ if ( process.env.BROWSER ) var humane = require('../../utils/utils').humane;
 )
 export default class FoodDetail extends React.Component {
 
-  static fetchData({ store, params, baseUrl }) {
-    return store.dispatch(fetchFoodDetail({ baseUrl, id: params.id }));
+  static fetchData({ store, params, baseUrl, pathname }) {
+    return pathname !== '/pridat-potravinu' ? store.dispatch(fetchFoodDetail({ baseUrl, id: params.id })) : Promise.resolve();
   }
 
   componentWillMount() {
