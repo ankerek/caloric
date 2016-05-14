@@ -1,3 +1,4 @@
+require('babel-polyfill');
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');

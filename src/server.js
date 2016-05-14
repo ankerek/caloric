@@ -88,7 +88,7 @@ app.use((req, res) => {
      
         res.send('<!doctype html>\n' + ReactDOM.renderToString(<Html component={component} store={store}/>));
       })
-      .catch(err => res.status(404).json( 'Stránka nenalezena' ));
+      .catch(err => next(err));
 
       function getReduxPromise () {
         const { query, params } = renderProps;

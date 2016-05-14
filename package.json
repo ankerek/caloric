@@ -9,19 +9,23 @@
     "clean": "rimraf dist",
     "build": "NODE_ENV=production webpack --progress --stats --config ./webpack/prod.config.js",
     "build-windows": "npm run clean&&SET NODE_ENV=production&&webpack --progress --stats --config ./webpack/prod.config.js",
-    "dev-windows": "SET NODE_ENV=development&&node index",    
+    "dev-windows": "SET NODE_ENV=development&&node index",
     "prod": "NODE_ENV=production node index",
     "prod-windows": "SET NODE_ENV=production&&node index",
     "lint": "eslint src",
     "start": "npm run prod"
   },
   "devDependencies": {
+    "babel-preset-es2015-loose": "^7.0.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.8.0",
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "font-awesome": "^4.6.1",
+    "font-awesome-webpack": "0.0.4",
+    "less": "^2.7.1",
     "node-sass": "3.4.2",
     "react-addons-perf": "^15.0.1",
     "rimraf": "^2.4.3",
@@ -30,10 +34,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1",
-    "font-awesome": "^4.6.1",
-    "font-awesome-webpack": "0.0.4",
-    "less": "^2.7.1"
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "babel-core": "^6.3.15",

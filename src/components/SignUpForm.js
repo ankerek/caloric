@@ -20,7 +20,7 @@ const validate = (values) => {
   if (!values.gender) errors.gender = 'Pohlaví je povinné';
   if(!values.birthday) errors.birthday = 'Datum narození je povinné';
   if(!values.weight) errors.weight = 'Váha je povinná';
-  if(!values.height) errors.height = 'Výška narození je povinná';
+  if(!values.height) errors.height = 'Výška je povinná';
   if(!values.activityFactor) errors.activityFactor = 'Úroveň fyzické aktivity je povinná';
 
   if (!/^(0?[1-9]|[12][0-9]|3[01])(\.|,)(0?[1-9]|1[012])(\.|,)(19|20)\d\d$/i.test(values.birthday) && values.birthday) {

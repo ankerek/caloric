@@ -10,6 +10,7 @@ import { D_NVS } from '../../dictionary'
 @connect(
   state => ({
     food: state.food.get('detail'),
+    user: state.auth.get('user')
   })
 )
 export default class FoodDetail extends React.Component {
@@ -44,9 +45,10 @@ export default class FoodDetail extends React.Component {
   };
   
   render() {
-    const { food } = this.props;
+    const { food, user } = this.props;
     const error = this.state.error;
     const title = food.get('name');
+    const isUser = user.size !== 0;
   	
     const nutritionValues = Object.keys(D_NVS).map((type, i) => <tr key={i}><td>{D_NVS[type].label}</td><td>{food.hasIn(['nutritionValues', type]) ? Math.round(food.getIn(['nutritionValues', type]) / 100 * this.state.weight * 100 )/100 : 0}{D_NVS[type].unit}</td></tr>);
 
@@ -55,7 +57,7 @@ export default class FoodDetail extends React.Component {
         <h1>{title}</h1>
         <Helmet title={title} />
 
-        <Link to={'/potravina/'+food.get('_id')+'/editace'}>Upravit potravinu</Link>
+        { isUser && <Link to={'/potravina/'+food.get('_id')+'/editace'}>Upravit potravinu</Link> }
 
         <form className="form-inline">
           <p className="form-control-static">Zobrazit nutriční hodnoty na</p>

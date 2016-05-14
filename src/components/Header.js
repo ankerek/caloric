@@ -24,26 +24,22 @@ export default class Header extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavDropdown title="Potraviny" id="basic-nav-dropdown">
-              <LinkContainer to="/potraviny">
-                <NavItem>Seznam potravin</NavItem>
-              </LinkContainer>
-              {isUser && 
-              <LinkContainer to="/pridat-potravinu">
-                <NavItem>Přidat potravinu</NavItem>
-              </LinkContainer>
-              }
-            </NavDropdown>
+            <LinkContainer to="/potraviny">
+              <NavItem>Potraviny</NavItem>
+            </LinkContainer>
+            {isUser && 
+            <LinkContainer to="/pridat-potravinu">
+              <NavItem>Přidat potravinu</NavItem>
+            </LinkContainer>
+            }
             {isUser && 
             <LinkContainer to="/statistika">
               <NavItem>Statistika</NavItem>
             </LinkContainer>}
             {isUser && 
-            <NavDropdown title="Nastavení" id="basic-nav-dropdown">
-              <LinkContainer to="/nastaveni/predvolby">
-                <NavItem>Předvolby</NavItem>
-              </LinkContainer>
-            </NavDropdown>}
+            <LinkContainer to="/nastaveni/predvolby">
+              <NavItem>Předvolby</NavItem>
+            </LinkContainer>}
           </Nav>
           
           { isUser && 
