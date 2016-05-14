@@ -26,7 +26,7 @@ const validate = (values) => {
   if (!/^(0?[1-9]|[12][0-9]|3[01])(\.|,)(0?[1-9]|1[012])(\.|,)(19|20)\d\d$/i.test(values.birthday) && values.birthday) {
     errors.birthday = 'Datum narození je ve špatném formátu. Správný formát: D.M.YYYY. Např.: 7.10.1990';
   }
-  else if(moment(values.birthday, 'DD-MM-YYYY').diff(moment()) > 0) errors.birthday = 'Datum narození nemůže být v budoucnosti';
+  else if(moment(values.birthday, 'DD.MM.YYYY').diff(moment().subtract(1, 'days')) > 0) errors.birthday = 'Datum narození nemůže být dnes ani v budoucnosti';
 
 
   return errors;
@@ -72,10 +72,16 @@ export default class SignUpForm extends React.Component {
           <UserInfo fields={fields} />
 
           <button className="btn btn-success" disabled={submitting}
-            onClick={handleSubmit((data) => dispatchSignup(data).then(() => {
-              browserHistory.push('/prihlaseni');
-              humane.log('Registrace proběhla úspěšně. Nyní se můžete přihlásit.')
-            }))}
+            onClick={
+              handleSubmit((data) => {
+                let nData = {...data};
+                if(nData.birthday) nData.birthday = moment(nData.birthday, 'D.M.YYYY').toDate();
+                return dispatchSignup(nData).then(() => {
+                  browserHistory.push('/prihlaseni');
+                  humane.log('Registrace proběhla úspěšně. Nyní se můžete přihlásit.')
+                })
+              })
+            }
             > Odeslat
           </button>
         </form>

@@ -5,20 +5,8 @@ import auth from './auth'
 import meals from './meals'
 import nutritionValues from './nutritionValues'
 import preferences from './preferences'
-import notification from './notification'
 import statistics from './statistics'
 import food from './food'
-
-// const routing = (state = {}, action) => {
-//   switch (action.type) {
-//     case 'ROUTE_LOCATION_DID_UPDATE': 
-//     	return action.payload
-//     default:
-//       return state
-//   }
-// }
-
-
 
 
 export default combineReducers({
@@ -27,7 +15,6 @@ export default combineReducers({
   nutritionValues,
   preferences,
   statistics,
-  notification,
   food,
   form
 });

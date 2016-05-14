@@ -6,6 +6,7 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken'
 
 import apiRoutes from './api'
 import config from './config'
@@ -47,12 +48,25 @@ app.use(express.static(path.join(__dirname, '..', 'static')));
 
 app.use('/api', apiRoutes);
 
+app.use((req, res, next) => {
+  const token = req.cookies.token;
+  if(token) {
+    try {
+      jwt.verify(token, config.secret);
+    } catch(err) {
+      res.clearCookie('token', { path: '/' });
+    }
+  }
+  return next();
 
-app.use(function(req, res) {
+});
+
+app.use((req, res) => {
 
   const token = req.cookies.token;
 
   const store = configureStore( { auth: { token } } );
+
 
   match({ routes: routes(store), location: req.url }, ( error, redirectLocation, renderProps ) => {
 

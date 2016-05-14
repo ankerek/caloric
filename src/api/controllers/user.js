@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import config from '../../config'
 import User from '../models/user'
 import Preferences from '../models/preferences'
 import { generateToken, extractToken, getCleanUser } from '../../utils/auth'
@@ -108,7 +109,7 @@ export function getLogged(req, res, next) {
     return res.status(401).json('Token není k dispozici.');
   }
 
-  jwt.verify(token, 'tajnyKlic', function(err, user) {
+  jwt.verify(token, config.secret, function(err, user) {
     if (err) return next(err);
     //return user using the id from w/in JWTToken
     User.findById(user._id, function(err, user) {

@@ -48,32 +48,27 @@ export const signin = (data) => {
   return (dispatch) => {
     const { username, password } = data;
 
-    return fetch('/api/signin', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, password })
-    })
-    .then((response) => {
-      const json = response.json();
-      if (response.status >= 200 && response.status < 300) return json;
-      else return json.then(Promise.reject.bind(Promise));
-    })
-    .then(
-      (result) => {
+
+    return dispatch({
+      types: [ActionTypes.SIGNIN_REQUEST, ActionTypes.SIGNIN_SUCCESS, ActionTypes.SIGNIN_FAILURE],
+      promise: fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      })
+    }).then(
+      ({result}) => {
         cookie.save('token', result.token, { 
           path: '/',
           expires: new Date(Date.now() + config.authExpiration *  1000)
         });
-        return dispatch(signinSuccess(result));
-      },
-      (error) => {
-        dispatch(signinFailure({message: error}));
-        return Promise.reject(error);
+        return result;
       }
     )
+    
   }
 
 }

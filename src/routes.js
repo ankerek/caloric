@@ -53,7 +53,7 @@ export default (store) => {
     const {auth} = store.getState();
     const token = auth.get('token');
 
-    if ( ( process.env.BROWSER && cookie.load('token') !== token ) ) {
+    if ( process.env.BROWSER && cookie.load('token') !== token ) {
       store.dispatch(logout());
       replace('/prihlaseni');
     } else if( !auth || !token ) replace('/prihlaseni');
