@@ -16,7 +16,6 @@
     "start": "npm run prod"
   },
   "devDependencies": {
-    "babel-preset-es2015-loose": "^7.0.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.8.0",
     "eslint-plugin-babel": "^3.0.0",
@@ -43,6 +42,7 @@
     "babel-plugin-transform-decorators": "^6.8.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015-loose": "^7.0.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.5.0",
