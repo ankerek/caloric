@@ -25,7 +25,7 @@ export default class FoodListItems extends React.Component {
           <tr>
             <th>Název</th>
             {
-              filters.map((filter, i) => <th key={i}>{D_NVS[filter.get('value')].label}</th>)
+              filters.map((filter, i) => <th key={i}>{D_NVS[filter.get('value')].label} ({D_NVS[filter.get('value')].unit})</th>)
             }
           </tr>
         </thead>

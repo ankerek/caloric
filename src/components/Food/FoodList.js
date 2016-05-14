@@ -3,7 +3,7 @@ import Immutable from 'immutable'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { fetchFoodList, clearFoodList, changeFoodListFilters } from '../../actions/food'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Alert } from 'react-bootstrap'
 
 import FindFoodInput from './FindFoodInput'
 import SelectNutritionValues from './SelectNutritionValues'
@@ -52,6 +52,7 @@ export default class FoodList extends React.Component {
           <Col md={4}><FindFoodInput findFoodList={this.findFoodList} /></Col>
           <Col md={8}><SelectNutritionValues changeFilter={this.changeFilter} value={filters} /></Col>
         </Row>
+        <Alert bsStyle="warning">Hodnoty se zobrazují v přepočtu na <strong>100g</strong> potraviny</Alert>
         <FoodListItems list={list} filters={filters} />
         
       </div>
