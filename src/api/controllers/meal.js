@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import Meal from '../models/meal'
 import Food from '../models/food'
-import { countNutrient, hexSeconds, timestampFromObjectId } from '../../utils/utils'
+import { countNutrient } from '../../utils/utils'
 import { D_NVS } from '../../dictionary'
 
 function updateSums(data, food) {

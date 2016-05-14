@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { fetchPreferences, updatePreferences } from '../../actions/preferences'
 import { timestampFromObjectId } from '../../utils/utils'
-import { calculateBmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
+import { calculateNutritionValue } from '../../utils/preferences'
 import { getTimestampFromParams } from '../../utils/utils'
 import PreferencesForm from './PreferencesForm'
 

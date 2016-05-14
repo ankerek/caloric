@@ -5,7 +5,6 @@ import { fetchMealsForStats, fetchPreferencesForStats } from '../../actions/stat
 import moment from 'moment'
 import { Map } from 'immutable'
 import Select from 'react-select'
-import DatePicker from 'react-date-picker'
 import { Row, Col } from 'react-bootstrap'
 import MainGraph  from './MainGraph'
 import NVGraph  from './NVGraph'

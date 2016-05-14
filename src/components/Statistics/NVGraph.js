@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
-import { timestampFromObjectId } from '../../utils/utils'
-import {makeWidthFlexible, XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries, VerticalBarSeries, Crosshair} from 'react-vis'
+import {makeWidthFlexible, XYPlot, XAxis, YAxis, LineSeries, VerticalBarSeries, Crosshair} from 'react-vis'
 import { D_NVS } from '../../dictionary'
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);

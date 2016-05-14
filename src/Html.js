@@ -6,8 +6,7 @@ let script;
 if(process.env.NODE_ENV === 'development') {
   const config = require('../webpack/dev.config');
   script = `${config.output.publicPath}${config.output.filename}`;
-}
-else script = '/dist/bundle.js';
+} else script = '/dist/bundle.js';
 
 // const config = process.env.NODE_ENV === 'production' ? require('../webpack/prod.config') : require('../webpack/dev.config');
 // const script = `${config.output.publicPath}${config.output.filename}`;

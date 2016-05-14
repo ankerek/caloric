@@ -1,15 +1,9 @@
 import React from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
 import { Table } from 'react-bootstrap'
 import { Link } from 'react-router'
 import { D_NVS } from '../../dictionary'
 
-
 export default class FoodListItems extends React.Component {
-  constructor(props) {
-    super(props);
-    //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-  }
 
   render() {
     const { list, filters } = this.props;

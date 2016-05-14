@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import Food from '../models/food'
 import Meal from '../models/meal'
 import { removeDiacritics } from '../../utils/removeDiacritics'
-import { D_NVS, D_NVS_KEYS } from '../../dictionary'
+import { D_NVS_KEYS } from '../../dictionary'
 
 function randomNValue(min, max) {
   const value = Math.floor(Math.random()*(max-min+1)+min);

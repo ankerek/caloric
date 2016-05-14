@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Button, Panel, Table, Alert } from 'react-bootstrap'
+import { Row, Col, Button } from 'react-bootstrap'
 import Select from 'react-select'
 
 export default class SelectNutritionValue extends React.Component {
@@ -21,6 +21,13 @@ export default class SelectNutritionValue extends React.Component {
     });
   };
 
+  onClick = () => {
+    this.setState({
+      nvToChoose: null
+    });
+    this.props.addNutritionValue(this.state.nvToChoose);
+  };
+
   render() {
     const { options, addNutritionValue } = this.props;
     return (
@@ -40,9 +47,7 @@ export default class SelectNutritionValue extends React.Component {
             </div>
           </Col>
           <Col xs={6}>
-            <Button bsStyle="primary" style={{marginTop: '24px'}} disabled={this.state.nvToChoose ? false : true} onClick={() => {
-              addNutritionValue(this.state.nvToChoose);
-            }}><i/> Přidat
+            <Button bsStyle="primary" style={{marginTop: '24px'}} disabled={!this.state.nvToChoose} onClick={this.onClick}><i/> Přidat
             </Button>
           </Col>
         </Row>

@@ -48,7 +48,7 @@ export default class SignInForm extends React.Component {
           </div>
 
           <button className="btn btn-success" disabled={submitting}
-            onClick={handleSubmit((data) => dispatchSignin(data).then((result) => {
+            onClick={handleSubmit((data) => dispatchSignin(data).then(() => {
               return browserHistory.push('/');
             }))}
             > Přihlásit se

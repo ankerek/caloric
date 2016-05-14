@@ -5,8 +5,6 @@ import { browserHistory } from 'react-router'
 import { fetchFoodDetail, updateFood, clearFoodDetail } from '../../actions/food'
 import FoodDetailForm from './FoodDetailForm'
 
-import { Col } from 'react-bootstrap'
-
 if ( process.env.BROWSER ) var humane = require('../../utils/utils').humane;
 
 @connect(

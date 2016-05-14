@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
 import { Map } from 'immutable'
-import { timestampFromObjectId } from '../../utils/utils'
-import {makeWidthFlexible, XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, LineSeries, VerticalBarSeries, Crosshair, Hint} from 'react-vis'
+import { makeWidthFlexible, XYPlot, XAxis, YAxis, LineSeries, VerticalBarSeries, Crosshair } from 'react-vis'
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
@@ -21,12 +20,6 @@ export default class MainGraph extends React.Component {
     this._crosshairValues = [];
 
     this._onMouseLeave = this._onMouseLeave.bind(this);
-    // this._onNearestXs = [
-    //   this._onNearestX.bind(this, 0),
-    //   this._onNearestX.bind(this, 1),
-    //   this._onNearestX.bind(this, 2),
-    //   this._onNearestX.bind(this, 3)
-    // ];
   }
 
   /**
@@ -79,7 +72,7 @@ export default class MainGraph extends React.Component {
   }
 
   render() {
-    const { data: { goals, values, proteins, carbs, fats, xLabelValues } } = this.props;
+    const { data: { goals, proteins, carbs, fats, xLabelValues } } = this.props;
 
     return (
       <div>

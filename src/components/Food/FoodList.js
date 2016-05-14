@@ -3,7 +3,7 @@ import Immutable from 'immutable'
 import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { fetchFoodList, clearFoodList, changeFoodListFilters } from '../../actions/food'
-import { Row, Col, Table } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 import FindFoodInput from './FindFoodInput'
 import SelectNutritionValues from './SelectNutritionValues'

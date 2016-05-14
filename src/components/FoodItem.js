@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { updateMealFood, removeMealFood } from '../actions/meals'
 
-import { FormGroup, InputGroup, FormControl, Col, Button } from 'react-bootstrap'
+import { InputGroup, FormControl, Col, Button } from 'react-bootstrap'
 
 
 
@@ -122,7 +122,6 @@ export default class FoodItem extends React.Component {
   }
 
   renderEdit() {
-    const item = this.props.item;
     return (
       <form onBlur={this.itemOnBlur} onSubmit={this.finishEdit}>
         <Col md={3}>

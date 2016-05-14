@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { D_NVS, D_NVS_KEYS } from '../../dictionary'
+import { D_NVS_KEYS } from '../../dictionary'
 
 const Schema = mongoose.Schema;
 

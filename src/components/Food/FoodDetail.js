@@ -3,8 +3,7 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { fetchFoodDetail } from '../../actions/food'
-import FoodDetailForm from './FoodDetailForm'
-import { Col, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import { D_NVS } from '../../dictionary'
 
 @connect(

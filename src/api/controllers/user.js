@@ -86,7 +86,7 @@ export function signup(req, res, next) {
 
       const preferences = new Preferences({...body, _id, user_id: user._id});
 
-      preferences.save((err, preferences) => {
+      preferences.save((err) => {
         if (err) return next(err);
 
         res.json({ user: cleanUser, token });

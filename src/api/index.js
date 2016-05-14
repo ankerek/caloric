@@ -1,5 +1,4 @@
 import express from 'express'
-import jwt from 'jsonwebtoken'
 import expressJwt from 'express-jwt'
 import config from '../config'
 

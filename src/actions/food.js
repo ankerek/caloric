@@ -1,5 +1,4 @@
 import 'isomorphic-fetch'
-import config from '../config'
 import * as ActionTypes from '.'
 import { removeDiacritics } from '../utils/removeDiacritics'
 

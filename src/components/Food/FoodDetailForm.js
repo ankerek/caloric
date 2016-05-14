@@ -1,8 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form'
-import Helmet from 'react-helmet'
 import PureInput from '../PureInput'
-import { Row, Col, Button, Alert } from 'react-bootstrap'
+import { Button, Alert } from 'react-bootstrap'
 import { D_NVS, D_NVS_KEYS } from '../../dictionary'
 
 const nvFields = D_NVS_KEYS.map((nv) => `nutritionValues.${nv}`);

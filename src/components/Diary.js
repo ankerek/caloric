@@ -55,7 +55,7 @@ export default class Diary extends React.Component {
     const { meals, nutritionValues, loadingMeals, params } = this.props;
 
     const timestamp = getTimestampFromParams(this.props.params);
-    const title = "Jídelníček";
+    const title = 'Jídelníček';
   	
     return (
       <div className="main">

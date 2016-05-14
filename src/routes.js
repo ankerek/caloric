@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, IndexRoute, createRoutes } from 'react-router'
+import { Route, IndexRoute } from 'react-router'
 import cookie from 'react-cookie'
 import { getTimestampFromParams } from './utils/utils'
 import { logout } from './actions/auth'

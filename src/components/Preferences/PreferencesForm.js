@@ -1,11 +1,10 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import moment from 'moment'
-import { Row, Col, Button, Panel, Table, Alert } from 'react-bootstrap'
+import { Row, Col, Button } from 'react-bootstrap'
 import UserInfo from './UserInfo'
 import NutritionValues from './NutritionValues'
 import SelectNutritionValue from './SelectNutritionValue'
-import PureInput from './../PureInput'
 
 import { calculateRmr, calculateTee, calculateNutritionValue } from '../../utils/preferences'
 
@@ -22,8 +21,7 @@ const validate = values => {
 
   if (!/^(0?[1-9]|[12][0-9]|3[01])(\.|,)(0?[1-9]|1[012])(\.|,)(19|20)\d\d$/i.test(values.birthday) && values.birthday) {
     errors.birthday = 'Datum narození je ve špatném formátu. Správný formát: D.M.YYYY. Např.: 7.10.1990';
-  }
-  else if(moment(values.birthday, 'DD.MM.YYYY').diff(moment().subtract(1, 'days')) > 0) errors.birthday = 'Datum narození nemůže být dnes ani v budoucnosti';
+  } else if(moment(values.birthday, 'DD.MM.YYYY').diff(moment().subtract(1, 'days')) > 0) errors.birthday = 'Datum narození nemůže být dnes ani v budoucnosti';
   
   return errors;
 };
@@ -40,7 +38,7 @@ const Calculated = ({preferences}) => {
       <div className="alert bg-info">
         Klidová míra metabolismu (RMR): <strong>{calculateRmr(preferences)}</strong> kcal/den<br />
         Celkový energetický výdeh (TEE) a doporučený příjem pro udržení váhy: <strong>{tee}</strong> kcal/den<br />
-        Pro zhubnutí 0,45kg za týden je doporučeno: <strong>{tee - 500}</strong> kcal/den<br />
+        Pro zhubnutí 0,45kg za týden je doporučeno: <strong>{tee-500}</strong> kcal/den<br />
         Pro nabrání 0,45kg za týden je doporučeno: <strong>{tee + 500}</strong> kcal/den<br />
       </div>
     </div>
@@ -95,7 +93,7 @@ export default class PreferencesForm extends React.Component {
 
     const nutritionValuesToChoose = Object.keys(D_NVS)
       .filter((nutrient) => nutritionValuesArr.indexOf(nutrient) === -1 )
-      .map((type, i) => {
+      .map((type) => {
         return {value: type, label: D_NVS[type].label}
       });
 
