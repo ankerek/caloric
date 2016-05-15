@@ -70,7 +70,7 @@ export default class FoodItem extends React.Component {
   };
 
   finishEdit = (e) => {
-    e.preventDefault();
+    if(e) e.preventDefault();
     const { item } = this.props;
 
     const newQty = this.state.qty;//parseInt(this.refs.qty.getValue());
@@ -100,7 +100,6 @@ export default class FoodItem extends React.Component {
 
   itemOnBlur = (e) => {
     const currentTarget = e.currentTarget;
-    
     setTimeout(() => {
       if (!currentTarget.contains(document.activeElement)) {
         this.finishEdit();        
