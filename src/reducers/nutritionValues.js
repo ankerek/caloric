@@ -1,10 +1,10 @@
 import Immutable from 'immutable'
-import { ADD_MEAL_SUCCESS, UPDATE_MEAL_SUCCESS, UPDATE_MEAL_FOOD_SUCCESS, REMOVE_MEAL_FOOD_SUCCESS  } from '../actions/meals'
+import * as ActionTypes from '../actions'
 
 const InitialState = Immutable.Record({
   list: Immutable.List()
 });
-const initialState = new InitialState;
+export const initialState = new InitialState;
 
 const revive = ({ list }) => initialState.merge({
   list: Immutable.fromJS(list)
@@ -16,10 +16,10 @@ const nutritionValues = (state = initialState, action) => {
 
   switch (action.type) {
     
-    case ADD_MEAL_SUCCESS:
-    case UPDATE_MEAL_SUCCESS:
-    case UPDATE_MEAL_FOOD_SUCCESS:
-    case REMOVE_MEAL_FOOD_SUCCESS: {
+    case ActionTypes.ADD_MEAL_SUCCESS:
+    case ActionTypes.UPDATE_MEAL_SUCCESS:
+    case ActionTypes.UPDATE_MEAL_FOOD_SUCCESS:
+    case ActionTypes.REMOVE_MEAL_FOOD_SUCCESS: {
 
     	let meal = action.result;
       let meal_id = meal._id;
@@ -33,7 +33,7 @@ const nutritionValues = (state = initialState, action) => {
         return item;
       }));
     }
-    case 'FETCH_PREFERENCES_SUCCESS':
+    case ActionTypes.FETCH_PREFERENCES_SUCCESS:
 
       if(action.meals) {
         var fromMeals = action.meals.reduce((previous, current) => {

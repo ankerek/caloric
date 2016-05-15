@@ -16,9 +16,6 @@ export default class SelectNutritionValues extends React.Component {
 
   onChange = (value) => {
     const newValue = value ? value : [];
-    this.setState({
-      newValue
-    });
 
     this.props.changeFilter(newValue);
   };

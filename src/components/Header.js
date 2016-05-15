@@ -21,6 +21,7 @@ export default class Header extends React.Component {
           <Navbar.Brand>
             <IndexLink to="/">Jídelníček</IndexLink>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
@@ -37,7 +38,7 @@ export default class Header extends React.Component {
               <NavItem>Statistika</NavItem>
             </LinkContainer>}
             {isUser && 
-            <LinkContainer to="/nastaveni/predvolby">
+            <LinkContainer to="/predvolby">
               <NavItem>Předvolby</NavItem>
             </LinkContainer>}
           </Nav>

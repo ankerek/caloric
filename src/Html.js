@@ -28,14 +28,14 @@ export default class Html extends Component {
           {head.script.toComponent()}
 
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link href="/bootstrap.min.css" rel="stylesheet" type="text/css" charSet="UTF-8"/>
-          {process.env.NODE_ENV === 'production' && <link href="/dist/bundle.css" rel="stylesheet" type="text/css" charSet="UTF-8"/>}
+          <link href="/bootstrap.min.css" rel="stylesheet" type="text/css" />
+          {process.env.NODE_ENV === 'production' && <link href="/dist/bundle.css" rel="stylesheet" type="text/css" />}
 
         </head>
         <body>
           <div id="main" dangerouslySetInnerHTML={{__html: content}}/>
-          <script dangerouslySetInnerHTML={{__html: `window.__INITIAL_STATE__=${JSON.stringify(store.getState())};`}} charSet="UTF-8"/>
-          <script src={script} charSet="UTF-8"/>
+          <script dangerouslySetInnerHTML={{__html: `window.__INITIAL_STATE__=${JSON.stringify(store.getState())};`}} />
+          <script src={script} />
 
         </body>
       </html>

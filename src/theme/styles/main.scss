@@ -61,3 +61,23 @@ body {
 .progress-bar {
 	color: black;
 }
+
+// @media (max-width: 768px) {
+// 	.preferences-form {
+//   	.nutrition-values-list {
+//   		.row {
+//   			margin: 
+//   		}
+//   	}
+//   }
+// }
+
+@media (min-width: 768px) {
+  .preferences-form {
+  	.nutrition-values-list, .select-nutrition-value {
+  		button {
+  			margin-top: 24px;
+  		}
+  	}
+  }
+}

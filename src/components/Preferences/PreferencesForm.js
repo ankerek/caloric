@@ -98,7 +98,7 @@ export default class PreferencesForm extends React.Component {
       });
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form className="preferences-form" onSubmit={handleSubmit}>
         <Row>
           <Col md={6}>
             <UserInfo fields={fields} />

@@ -1,10 +1,9 @@
 import * as utils from '../utils/utils'
 import 'isomorphic-fetch'
+import * as ActionTypes from '.'
 
 
-export const FETCH_MEALS_REQUEST = 'FETCH_MEALS_REQUEST'
-export const FETCH_MEALS_SUCCESS = 'FETCH_MEALS_SUCCESS'
-export const FETCH_MEALS_FAILURE = 'FETCH_MEALS_FAILURE'
+
 export const fetchMeals = ({baseUrl, timestamp}) => {
   const timestamp2 = timestamp + 24*60*60*1000;
   const objectId = utils.objectIdFromTimestamp(timestamp);
@@ -16,7 +15,7 @@ export const fetchMeals = ({baseUrl, timestamp}) => {
     const token = getState().auth.get('token');
 
     return dispatch({
-      types: [FETCH_MEALS_REQUEST, FETCH_MEALS_SUCCESS, FETCH_MEALS_FAILURE],
+      types: [ActionTypes.FETCH_MEALS_REQUEST, ActionTypes.FETCH_MEALS_SUCCESS, ActionTypes.FETCH_MEALS_FAILURE],
       promise: fetch(`${baseUrl}/api/meals?from=${objectId}&to=${objectId2}`, {
         headers: {
           'Authorization': 'Bearer ' + token
@@ -28,9 +27,7 @@ export const fetchMeals = ({baseUrl, timestamp}) => {
 }
 
 
-export const ADD_MEAL_REQUEST = 'ADD_MEAL_REQUEST'
-export const ADD_MEAL_SUCCESS = 'ADD_MEAL_SUCCESS'
-export const ADD_MEAL_FAILURE = 'ADD_MEAL_FAILURE'
+
 export const addMeal = (data) => {
   const hexSeconds = utils.hexSeconds(data.timestamp);
 
@@ -38,7 +35,7 @@ export const addMeal = (data) => {
     const token = getState().auth.get('token');
 
     return dispatch({
-      types: [ADD_MEAL_REQUEST, ADD_MEAL_SUCCESS, ADD_MEAL_FAILURE],
+      types: [ActionTypes.ADD_MEAL_REQUEST, ActionTypes.ADD_MEAL_SUCCESS, ActionTypes.ADD_MEAL_FAILURE],
       promise: fetch('/api/meals', {
         method: 'POST',
         headers: {
@@ -53,16 +50,14 @@ export const addMeal = (data) => {
 }
 
 
-export const UPDATE_MEAL_REQUEST = 'UPDATE_MEAL_REQUEST'
-export const UPDATE_MEAL_SUCCESS = 'UPDATE_MEAL_SUCCESS'
-export const UPDATE_MEAL_FAILURE = 'UPDATE_MEAL_FAILURE'
+
 export const updateMeal = (data) => {
 
   return (dispatch, getState) => {
     const token = getState().auth.get('token');
 
     return dispatch({
-      types: [UPDATE_MEAL_REQUEST, UPDATE_MEAL_SUCCESS, UPDATE_MEAL_FAILURE],
+      types: [ActionTypes.UPDATE_MEAL_REQUEST, ActionTypes.UPDATE_MEAL_SUCCESS, ActionTypes.UPDATE_MEAL_FAILURE],
       promise: fetch('/api/meals/'+data.meal_id, {
         method: 'PUT',
         headers: {
@@ -70,7 +65,7 @@ export const updateMeal = (data) => {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({action: UPDATE_MEAL_REQUEST, meal: data.meal})
+        body: JSON.stringify({action: ActionTypes.UPDATE_MEAL_REQUEST, meal: data.meal})
       })
     })
   }
@@ -78,16 +73,14 @@ export const updateMeal = (data) => {
 }
 
 
-export const UPDATE_MEAL_FOOD_REQUEST = 'UPDATE_MEAL_FOOD_REQUEST'
-export const UPDATE_MEAL_FOOD_SUCCESS = 'UPDATE_MEAL_FOOD_SUCCESS'
-export const UPDATE_MEAL_FOOD_FAILURE = 'UPDATE_MEAL_FOOD_FAILURE'
+
 export const updateMealFood = (data) => {
 
   return (dispatch, getState) => {
     const token = getState().auth.get('token');
 
     return dispatch({
-      types: [UPDATE_MEAL_FOOD_REQUEST, UPDATE_MEAL_FOOD_SUCCESS, UPDATE_MEAL_FOOD_FAILURE],
+      types: [ActionTypes.UPDATE_MEAL_FOOD_REQUEST, ActionTypes.UPDATE_MEAL_FOOD_SUCCESS, ActionTypes.UPDATE_MEAL_FOOD_FAILURE],
       promise: fetch('/api/meals/'+data.meal_id, {
         method: 'PUT',
         headers: {
@@ -95,23 +88,21 @@ export const updateMealFood = (data) => {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({action: UPDATE_MEAL_FOOD_REQUEST, item: data.item})
+        body: JSON.stringify({action: ActionTypes.UPDATE_MEAL_FOOD_REQUEST, item: data.item})
       })
     })
   }
 }
 
 
-export const REMOVE_MEAL_FOOD_REQUEST = 'REMOVE_MEAL_FOOD_REQUEST'
-export const REMOVE_MEAL_FOOD_SUCCESS = 'REMOVE_MEAL_FOOD_SUCCESS'
-export const REMOVE_MEAL_FOOD_FAILURE = 'REMOVE_MEAL_FOOD_FAILURE'
+
 export const removeMealFood = (data) => {
 
   return (dispatch, getState) => {
     const token = getState().auth.get('token');
 
     return dispatch({
-      types: [REMOVE_MEAL_FOOD_REQUEST, REMOVE_MEAL_FOOD_SUCCESS, REMOVE_MEAL_FOOD_FAILURE],
+      types: [ActionTypes.REMOVE_MEAL_FOOD_REQUEST, ActionTypes.REMOVE_MEAL_FOOD_SUCCESS, ActionTypes.REMOVE_MEAL_FOOD_FAILURE],
       promise: fetch('/api/meals/'+data.meal_id, {
         method: 'PUT',
         headers: {
@@ -119,7 +110,7 @@ export const removeMealFood = (data) => {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({action: REMOVE_MEAL_FOOD_REQUEST, item: data.item})
+        body: JSON.stringify({action: ActionTypes.REMOVE_MEAL_FOOD_REQUEST, item: data.item})
       }),
       item_id: data.item._id
     })

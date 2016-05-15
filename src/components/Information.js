@@ -23,7 +23,7 @@ class Information extends React.Component {
 
     const oldDate = getTimestampFromParams(params) < new Date().setUTCHours(0,0,0,0);
 
-    const preferencesPath = '/nastaveni/predvolby/'+(oldDate ? params.date : '');
+    const preferencesPath = '/predvolby/'+(oldDate ? params.date : '');
     let preferencesInfo = <p>Pro tento den nemáte nastavené žádné nutriční hodnoty ke sledování. Můžete si je nastavit v <Link to={preferencesPath}>předvolbách</Link>.</p>;
     if(items.size > 0) {
       preferencesInfo = oldDate ? <p>Upravit nastavení sledování nutričních hodnot pro tento den v <Link to={preferencesPath}>předvolbách</Link>.</p> : <p>Upravit nastavení sledování nutričních hodnot v <Link to={preferencesPath}>předvolbách</Link>.</p>

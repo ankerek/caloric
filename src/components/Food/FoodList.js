@@ -21,10 +21,6 @@ export default class FoodList extends React.Component {
     list: PropTypes.instanceOf(Immutable.List).isRequired
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   componentWillUnmount() {    
     this.props.dispatch(clearFoodList());
   }

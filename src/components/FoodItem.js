@@ -123,7 +123,7 @@ export default class FoodItem extends React.Component {
   renderEdit() {
     return (
       <form onBlur={this.itemOnBlur} onSubmit={this.finishEdit}>
-        <Col md={3}>
+        <Col xs={6} md={3}>
           <InputGroup>
             <FormControl 
               autoFocus={true}
@@ -135,7 +135,7 @@ export default class FoodItem extends React.Component {
               <InputGroup.Addon>ks</InputGroup.Addon>
             </InputGroup>
         </Col>
-        <Col md={3}>
+        <Col xs={6} md={3}>
           <InputGroup>
             <FormControl 
               //defaultValue={item.get('weight')} 

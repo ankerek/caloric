@@ -5,12 +5,10 @@ const InitialState = Immutable.Record({
   user: Immutable.Map(),
   token: null
 });
-const initialState = new InitialState;
-
+export const initialState = new InitialState;
 
 const auth = (state = initialState, action) => {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state);
-  
   switch (action.type) {
     case ActionTypes.FETCH_USER_SUCCESS: 
       return Immutable.fromJS(action.result)

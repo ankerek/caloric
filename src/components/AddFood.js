@@ -95,7 +95,7 @@ export default class AddFood extends React.Component {
 	    		<Col xs={12} sm={4} md={5}>
 	    			<FindFoodAutosuggest onUpdate={this._findFoodOnUpdate} ref="FindFoodAutosuggest" />
 				 	</Col>
-				 	<Col xs={3} sm={2} md={2}>
+				 	<Col xs={6} sm={2} md={2}>
             <FormGroup>
               <InputGroup>
                 <FormControl type="number" min="1" max="10000" value={this.state.qty} onChange={this.qtyOnChange} required />
@@ -103,7 +103,7 @@ export default class AddFood extends React.Component {
               </InputGroup>
             </FormGroup>
           </Col>
-					<Col xs={3} sm={2} md={2}>
+					<Col xs={6} sm={2} md={2}>
             <FormGroup>
               <InputGroup>
                 <FormControl type="number" min="1" max="10000" value={this.state.weight} onChange={this.weightOnChange} required />
@@ -114,7 +114,7 @@ export default class AddFood extends React.Component {
 					<Col xs={6} sm={2} md={2}>
 						<select className="form-control" ref="type">{mealTypes}</select>
 			    </Col>
-					<Col xs={12} sm={1} md={1}><Button type="submit" disabled={loading}>Uložit</Button></Col>
+					<Col xs={6} sm={1} md={1}><Button type="submit" disabled={loading}>Uložit</Button></Col>
 				</Row>
 			</form>
     )

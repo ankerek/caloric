@@ -7,7 +7,7 @@ const InitialState = Immutable.Record({
   map: Immutable.Map(),
   loading: false
 });
-const initialState = new InitialState;
+export const initialState = new InitialState;
 
 const revive = ({ map, loading }) => initialState.merge({
   map: Immutable.fromJS(map),

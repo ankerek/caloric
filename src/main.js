@@ -5,19 +5,17 @@ import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import configureStore from './utils/configureStore'
 
-import Perf from 'react-addons-perf'
+//import Perf from 'react-addons-perf'
 import App from './components/App'
 
 
-window.Perf = Perf;
+//window.Perf = Perf;
 
 if ( process.env.BROWSER ) {
   require('./theme/styles/main.scss');
 }
 
 const rootEl = document.getElementById('main');
-
-
 
 const initialState = window.__INITIAL_STATE__
 

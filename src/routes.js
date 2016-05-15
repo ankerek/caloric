@@ -5,7 +5,6 @@ import { getTimestampFromParams } from './utils/utils'
 import { logout } from './actions/auth'
 import Diary from './components/Diary'
 import Main from './components/Main'
-import Settings from './components/Settings'
 import Preferences from './components/Preferences/Preferences'
 import SignUpForm from './components/SignUpForm'
 import SignInForm from './components/SignInForm'
@@ -69,7 +68,7 @@ export default (store) => {
   const checkDate = (nextState, replace) => {
     requireAuth(nextState, replace);
     
-    if(getTimestampFromParams(nextState.params) > new Date().setUTCHours(0,0,0,0)) replace('/nastaveni/predvolby');
+    if(getTimestampFromParams(nextState.params) > new Date().setUTCHours(0,0,0,0)) replace('/predvolby');
   };
 
   // const assignOnEnter = (route, onEnter) => {
@@ -91,10 +90,8 @@ export default (store) => {
       <IndexRoute component={Diary} onEnter={requireAuth} />
       <Route path="/jidelnicek/:date" component={Diary} onEnter={requireAuth} />
       <Route path="/statistika" component={Statistics} onEnter={requireAuth} />
-      <Route path="/nastaveni" component={Settings} onEnter={requireAuth}>
-        <Route path="predvolby" component={Preferences} onEnter={requireAuth} />
-        <Route path="predvolby/:date" component={Preferences} onEnter={checkDate} />
-      </Route>
+      <Route path="/predvolby" component={Preferences} onEnter={requireAuth} />
+      <Route path="/predvolby/:date" component={Preferences} onEnter={checkDate} />
       <Route path="/potraviny" component={FoodList} />
       <Route path="/potravina/:id" component={FoodDetail} />
       <Route path="/potravina/:id/editace" component={FoodDetailEdit} onEnter={requireAuth} />

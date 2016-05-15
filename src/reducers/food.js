@@ -9,7 +9,7 @@ const InitialState = Immutable.Record({
   detail: Immutable.Map()
 });
 
-const initialState = new InitialState;
+export const initialState = new InitialState;
 
 const revive = ({ loading, filters, list, detail }) => initialState.merge({
   loading,

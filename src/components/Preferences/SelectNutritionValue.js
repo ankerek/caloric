@@ -31,10 +31,10 @@ export default class SelectNutritionValue extends React.Component {
   render() {
     const { options, addNutritionValue } = this.props;
     return (
-      <div>
+      <div className="select-nutrition-value">
       {options.length > 0 && 
         <Row>
-          <Col xs={6}>
+          <Col xs={8} sm={6}>
             <div className="form-group">
               <label>Přidat nutriční hodnotu ke sledování</label>
               <Select
@@ -46,8 +46,8 @@ export default class SelectNutritionValue extends React.Component {
               />
             </div>
           </Col>
-          <Col xs={6}>
-            <Button bsStyle="primary" style={{marginTop: '24px'}} disabled={!this.state.nvToChoose} onClick={this.onClick}><i/> Přidat
+          <Col xs={4} sm={6}>
+            <Button bsStyle="primary" disabled={!this.state.nvToChoose} onClick={this.onClick}><i/> Přidat
             </Button>
           </Col>
         </Row>
