@@ -1,10 +1,10 @@
 {
   "name": "caloric",
   "version": "0.1.0",
-  "description": "",
+  "description": "React, Node.js, MongoDB app for tracking calories and nutrition values",
   "license": "",
-  "repository": "",
-  "homepage": "",
+  "repository": "https://github.com/ankerek/caloric",
+  "homepage": "https://github.com/ankerek/caloric",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --stats --config ./webpack/prod.config.js",
     "build-windows": "SET NODE_ENV=production&&webpack --progress --stats --config ./webpack/prod.config.js",

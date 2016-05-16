@@ -31,6 +31,7 @@ const NotSaved = () => {
 };
 
 const Calculated = ({preferences}) => {
+  if(!preferences.gender || !preferences.birthday || !preferences.weight || !preferences.height || !preferences.activityFactor) return null;
   const tee = calculateTee(preferences);
   return (
     <div>

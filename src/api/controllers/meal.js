@@ -135,11 +135,7 @@ export function update(req, res, next) {
         }
       }
 
-      console.log(modifier);
-
       modifier.$push = { items: item };
-
-      //Object.assign(modifier, updateSums({qty: item.qty, weight: item.weight}, data.meal.item));
 
       mealFindByIdAndUpdate({_id: meal_id, modifier}, req, res, next);
 

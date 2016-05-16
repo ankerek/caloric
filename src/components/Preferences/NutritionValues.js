@@ -7,7 +7,7 @@ const NutritionValues = ({nutritionValues, preferences}) => {
   return (
     <div className="nutrition-values-list">
       <h3>Cíle</h3>
-      <p>Cíle se doplňují automaticky z vypočtených hodnot. Můžete si ale nastavit vlastní.</p>
+      <p>Cíle se doplňují automaticky z vypočtených hodnot. Můžete si ale nastavit vlastní. (Hodnota kilokalorií je hodnota pro udržení aktuální váhy.)</p>
 
       {nutritionValues.map((nutritionValue, index) => 
         <Row key={index}>

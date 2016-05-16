@@ -29,7 +29,7 @@ export default class SelectNutritionValue extends React.Component {
   };
 
   render() {
-    const { options, addNutritionValue } = this.props;
+    const { options } = this.props;
     return (
       <div className="select-nutrition-value">
       {options.length > 0 && 
