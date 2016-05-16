@@ -71,7 +71,7 @@ export default class NVGraph extends React.Component {
     const { data: { goals, values, xLabelValues }, type } = this.props;
 
     return (
-      <div>
+      <div className="graph">
         <FlexibleXYPlot
           xType="time"
           height={500}
@@ -101,6 +101,17 @@ export default class NVGraph extends React.Component {
             titleFormat={this._formatCrosshairTitle}
             values={this.state.crosshairValues} />
         </FlexibleXYPlot>
+
+        <div className="graph-legend">
+          <div className="legend-item">
+            <div className="line orange"></div>
+            Cíl
+          </div>
+          <div className="legend-item">
+            <div className="square peri"></div>
+            {D_NVS[type].label}
+          </div>
+        </div>
       </div>
     )
   }

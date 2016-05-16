@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import 'babel-polyfill'
 
 import express from 'express'
 import path from 'path'
@@ -66,7 +66,7 @@ app.use((req, res) => {
 
   const store = configureStore( { auth: { token } } );
 
-
+  // Match react-router routes by request url
   match({ routes: routes(store), location: req.url }, ( error, redirectLocation, renderProps ) => {
 
     if ( redirectLocation ) {
@@ -75,9 +75,9 @@ app.use((req, res) => {
       return next(error.message);
     } else if ( renderProps == null ) {
       res.status(404).json( 'Stránka nenalezena' );
-      //next();
     } else {
 
+      // fetch data and render component(s)
       getReduxPromise().then(() => {
         const component = (
           <Provider store={store}>
@@ -89,6 +89,7 @@ app.use((req, res) => {
       })
       .catch(err => next(err));
 
+      // find and call static methods for prefetching data
       function getReduxPromise () {
         const { location: { pathname} , params } = renderProps;
 

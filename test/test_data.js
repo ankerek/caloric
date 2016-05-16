@@ -1,3 +1,61 @@
+export const user = { user:
+  { _id: '56fedf8c18acbb200dd3c613',
+    username: 'ankerek',
+    email: 'ankerek@gmail.com' 
+  },
+   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1NmZlZGY4YzE4YWNiYjIwMGRkM2M2MTMiLCJ1c2VybmFtZSI6ImFua2VyZWsiLCJpYXQiOjE0NjMzMjc4NzEsImV4cCI6MTQ2MzQxNDI3MX0.Bd8dI5uRRKNkt8XpdOJxqpIip_vBXXjYE6zfyuiZD1I'
+ }
+
+export const foodList = [
+        {
+          "_id": "5707dff0fd6537275fa46d6e",
+          "name": "banány v čokoládě",
+          "_name": [
+            "banany",
+            "v",
+            "cokolade"
+          ],
+          "__v": 1,
+          "nutritionValues": {
+            "carbs": 804000,
+            "fats": 116000,
+            "fiber": 0,
+            "kcal": 4091000,
+            "proteins": 20000,
+            "vitaminc": 21000,
+            "vitamind": 3810,
+            "calcium": 182000,
+            "choline": 0,
+            "fluorid": 246,
+            "iodine": 55000,
+            "iron": 20500,
+            "magnesium": 0,
+            "manganese": 1510,
+            "molybden": 310,
+            "n3fats": 55000,
+            "n6fats": 26200,
+            "phosphorus": 347000,
+            "potassium": 0,
+            "selenium": 7270,
+            "sodium": 1380,
+            "vitamina": 3040000,
+            "vitaminb1": 0,
+            "vitaminb11": 238000,
+            "vitaminb12": 248,
+            "vitaminb2": 0,
+            "vitaminb3": 3270,
+            "vitaminb5": 7760,
+            "vitaminb6": 228,
+            "vitamine": 2190,
+            "vitamink": 5440,
+            "zinc": 0,
+            "copper": 53900,
+            "vitaminh": 5810,
+            "chromium": 6000
+          }
+        }
+      ]
+
 export const mealsList = [
   {
     "_id": "573519002eae97801ed99702",

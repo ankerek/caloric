@@ -62,15 +62,51 @@ body {
 	color: black;
 }
 
-// @media (max-width: 768px) {
-// 	.preferences-form {
-//   	.nutrition-values-list {
-//   		.row {
-//   			margin: 
-//   		}
-//   	}
-//   }
-// }
+.graph {
+	position: relative;
+	.graph-legend {
+		top: -50px;
+		right: 0;
+		position: absolute;
+		.square {
+			margin-right: 5px;
+			width: 15px;
+			height: 15px;
+			display: inline-block;
+			background-color: black;
+			vertical-align: middle;
+		}
+		.line {
+			margin-right: 5px;
+			width: 15px;
+			height: 0px;
+			display: inline-block;
+			border-bottom: 2px solid black;
+			vertical-align: middle;
+		}
+
+		.orange {
+			border-color: #ff9833;
+		}
+
+		.red {
+			background-color: #d9534f;
+		}
+		.blue {
+			background-color: #5bc0de;
+		}
+		.green {
+			background-color: #5cb85c;
+		}
+		.peri {
+			background-color: #12939a;
+		}
+	}
+
+	.rv-crosshair {
+		z-index: 9;
+	}
+}
 
 @media (min-width: 768px) {
   .preferences-form {

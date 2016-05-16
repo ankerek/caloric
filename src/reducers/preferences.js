@@ -1,7 +1,7 @@
 import moment from 'moment'
 import * as ActionTypes from '../actions'
 
-const initialState = {};
+export const initialState = {};
 
 const preferences = (state = initialState, action) => {
   //if (!(state instanceof InitialState)) return revive(state);

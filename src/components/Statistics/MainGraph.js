@@ -75,7 +75,7 @@ export default class MainGraph extends React.Component {
     const { data: { goals, proteins, carbs, fats, xLabelValues } } = this.props;
 
     return (
-      <div>
+      <div className="graph">
         <FlexibleXYPlot
           stackBy="y"
           xType="time"
@@ -116,6 +116,24 @@ export default class MainGraph extends React.Component {
             titleFormat={this._formatCrosshairTitle}
             values={this.state.crosshairValues} />
         </FlexibleXYPlot>
+        <div className="graph-legend">
+          <div className="legend-item">
+            <div className="line orange"></div>
+            Cíl kcal
+          </div>
+          <div className="legend-item">
+            <div className="square blue"></div>
+            Sacharidy
+          </div>
+          <div className="legend-item">
+            <div className="square red"></div>
+            Tuky
+          </div>
+          <div className="legend-item">
+            <div className="square green"></div>
+            Bílkoviny
+          </div>
+        </div>
       </div>
     )
   }
