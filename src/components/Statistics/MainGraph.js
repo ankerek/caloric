@@ -119,7 +119,7 @@ export default class MainGraph extends React.Component {
         <div className="graph-legend">
           <div className="legend-item">
             <div className="line orange"></div>
-            Cíl kcal
+            Cíl
           </div>
           <div className="legend-item">
             <div className="square blue"></div>
