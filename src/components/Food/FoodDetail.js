@@ -54,7 +54,12 @@ export default class FoodDetail extends React.Component {
     return (
       <div>
         <h1>{title}</h1>
-        <Helmet title={title} />
+        <Helmet 
+          title={title}
+          meta={[
+            {'name': 'description', 'content': `Informace o potravině ${title} a jejích nutričních hodnotách.`}
+          ]}
+        />
 
         { isUser && <Link to={'/potravina/'+food.get('_id')+'/editace'}>Upravit potravinu</Link> }
 

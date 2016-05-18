@@ -1,11 +1,3 @@
-// export const D_NUTRIENTS = new Map([
-// 	['kcal', ['kalorie', 0]],
-//   ['proteins', ['bílkoviny', 0]],
-//   ['carbs', ['sacharidy', 0]],
-//   ['fats', ['tuky', 0]],
-//   ['fiber', ['vlaknina', 1]]
-// ]);
-
 export const D_NVS = {
 	kcal: {
 		label: 'Kilokalorie',

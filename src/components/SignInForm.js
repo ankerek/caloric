@@ -34,7 +34,12 @@ export default class SignInForm extends React.Component {
     return (
       <div>
         <h1>{title}</h1>
-        <Helmet title={title} />
+        <Helmet 
+          title={title}
+          meta={[
+            {'name': 'description', 'content': 'Přihlášení do Caloric - webové aplikace, pro sledování nutričních hodnot.'}
+          ]}
+        />
         <form>
           <div className={'form-group ' + (username.touched && username.error && 'has-error')}>
             <label>Uživatelské jméno</label>

@@ -62,6 +62,10 @@ body {
 	color: black;
 }
 
+.rv-xy-plot, .rv-xy-plot__inner {
+	width: 1000px!important;
+}
+
 .graph {
 	position: relative;
 	.graph-legend {

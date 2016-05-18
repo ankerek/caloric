@@ -46,8 +46,9 @@ app.use(express.static(path.join(__dirname, '..', 'static')));
 
 
 
-app.use('/api', apiRoutes);
+app.use('/api', apiRoutes); // api routes
 
+//verify token in cookies
 app.use((req, res, next) => {
   const token = req.cookies.token;
   if(token) {
@@ -60,6 +61,7 @@ app.use((req, res, next) => {
   return next();
 });
 
+//universal rendering
 app.use((req, res) => {
 
   const token = req.cookies.token;
@@ -109,7 +111,7 @@ app.use((req, res) => {
 
 });
 
-
+// middleware for handle errors
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(err);
   return res.status(err.status || 500).json('Něco se pokazilo');
@@ -119,6 +121,7 @@ app.listen(config.port, function() {
   console.log(`Server started: http://${config.host}:${config.port}/`);
 });
 
+// webpack dev server for hot reloading
 if(config.env === 'development') {
   require('../webpack/dev-server');
 }

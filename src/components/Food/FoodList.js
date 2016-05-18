@@ -42,7 +42,12 @@ export default class FoodList extends React.Component {
       <div>
         <h1>{title} {loading && <i className="fa fa-refresh fa-spin fa-fw margin-bottom" aria-hidden="true"></i>}
           <span className="sr-only">Načítám...</span></h1>
-        <Helmet title={title} />
+        <Helmet 
+          title={title}
+          meta={[
+            {'name': 'description', 'content': 'Seznam potravin s informacemi o jejich nutričních hodnotách.'}
+          ]}
+        />
 
         <Row>
           <Col md={4}><FindFoodInput findFoodList={this.findFoodList} /></Col>

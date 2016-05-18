@@ -19,7 +19,6 @@ export function calculateTee(preferences) {
 
 export function calculateNutritionValue({type, preferences}) {
 
-	
 	if(preferences.gender && preferences.birthday && preferences.weight && preferences.height && preferences.activityFactor) {
 		switch(type) {
 			case 'kcal':

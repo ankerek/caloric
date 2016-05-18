@@ -1,12 +1,11 @@
 import 'babel-polyfill'
-//require('es6-promise').polyfill()
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import configureStore from './utils/configureStore'
+import App from './components/App'
 
 //import Perf from 'react-addons-perf'
-import App from './components/App'
 
 
 //window.Perf = Perf;
@@ -19,6 +18,7 @@ const rootEl = document.getElementById('main');
 
 const initialState = window.__INITIAL_STATE__
 
+//creating redux store
 const store = configureStore(initialState);
 
 ReactDOM.render(
@@ -28,6 +28,7 @@ ReactDOM.render(
   rootEl
 );
 
+// for hot reloading
 if (module.hot) {
   module.hot.accept('./components/App', () => {
     const NextApp = require('./components/App').default;
