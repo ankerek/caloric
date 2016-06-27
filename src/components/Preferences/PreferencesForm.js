@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import moment from 'moment'
-import { Row, Col, Button } from 'react-bootstrap'
+import { Row, Col, Button, Alert } from 'react-bootstrap'
 import UserInfo from './UserInfo'
 import NutritionValues from './NutritionValues'
 import SelectNutritionValue from './SelectNutritionValue'
